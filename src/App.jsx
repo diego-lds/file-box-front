@@ -9,6 +9,7 @@ import {
 import "./App.css";
 import Icon from "./components/icon";
 import List from "./components/List";
+import { deleteFile } from "./services/fileService";
 
 function App() {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -32,6 +33,15 @@ function App() {
     }
   };
 
+  const handleDeleteFile = async (file) => {
+    try {
+      await deleteFile("file-box", file.name);
+      fetchFiles();
+    } catch (error) {
+      console.error("Erro ao deletar o arquivo:", error);
+    }
+  };
+
   const handleOnChange = (event) => {
     setSelectedFile(event.target.files[0]);
   };
@@ -39,6 +49,7 @@ function App() {
   const fetchFiles = async () => {
     try {
       const response = await fetch("http://localhost:3000/files");
+      console.log(response);
       const data = await response.json();
       setFiles(data.files);
     } catch (error) {
@@ -107,7 +118,7 @@ function App() {
             <h2 className="text-xl font-semibold text-gray-700 text-center mb-4">
               Meus Arquivos
             </h2>
-            <List items={files} />
+            <List items={files} onDelete={handleDeleteFile} />
           </div>
         </div>
       </div>
