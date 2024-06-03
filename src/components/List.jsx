@@ -1,4 +1,8 @@
-import { faFileAlt, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import {
+  faFileAlt,
+  faTrashAlt,
+  faDownload,
+} from "@fortawesome/free-solid-svg-icons";
 import { bytesToKB } from "../utils";
 import Icon from "./icon";
 
@@ -22,6 +26,9 @@ const ListItem = ({ item, onDelete }) => {
         </div>
         <small className="text-gray-500">{bytesToKB(item.size)} KB</small>
         <div>
+          <a href={item.url} download>
+            <Icon icon={faDownload} className="text-gray-500 mr-3" />
+          </a>
           <button onClick={() => onDelete(item)}>
             <Icon icon={faTrashAlt} className="text-gray-500 mr-3" />
           </button>

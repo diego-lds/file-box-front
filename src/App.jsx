@@ -34,6 +34,8 @@ function App() {
   };
 
   const handleDeleteFile = async (file) => {
+    const isConfirmed = window.confirm(`Deletar arquivo ${file.name}?`);
+    if (!isConfirmed) return;
     try {
       await deleteFile("file-box", file.name);
       fetchFiles();
@@ -62,13 +64,16 @@ function App() {
   }, []);
 
   return (
-    <main className="min-h-screen  bg-gray-100">
-      <div className="container mx-auto py-8">
-        <h1 className="text-4xl text-indigo-600 text-center mb-10">
-          <Icon icon={faBoxOpen} className="mr-2" />
-          <span className="text-4xl font-bold">FILE</span>
-          BOX
-        </h1>
+    <main className="flex min-h-screen bg-gray-100">
+      <div className="w-1/6 min-w-[250px] ">
+        <aside>
+          <div className="flex items-center justify-center m-4 text-indigo-700 gap-1">
+            <Icon icon={faBoxOpen} size={10} className="text-2xl" />
+            <p className="text-3xl">filebox</p>
+          </div>
+        </aside>
+      </div>
+      <div className="container bg-red-500 mx-auto py-8">
         <div className="flex flex-col items-center">
           <div className="w-full max-w-3xl p-6 bg-white rounded shadow-md">
             <h2 className="text-xl font-semibold text-gray-700 text-center mb-6">
