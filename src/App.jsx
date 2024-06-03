@@ -2,20 +2,13 @@ import { useState, useEffect, useRef } from "react";
 import useFiles from "./hooks/useFiles";
 import { bytesToKB } from "./utils";
 import {
-  faFileAlt,
   faUpload,
   faTrashAlt,
-  faBox,
-  faBoxArchive,
   faBoxOpen,
-  faBoxTissue,
-  faBoxes,
-  faBoxesAlt,
-  faBoxesPacking,
-  faBoxesStacked,
 } from "@fortawesome/free-solid-svg-icons";
 import "./App.css";
 import Icon from "./components/icon";
+import List from "./components/List";
 
 function App() {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -114,28 +107,7 @@ function App() {
             <h2 className="text-xl font-semibold text-gray-700 text-center mb-4">
               Meus Arquivos
             </h2>
-            {files && files.length > 0 ? (
-              <ul className="divide-y divide-gray-200">
-                {files.map((file, index) => (
-                  <li
-                    key={index}
-                    className="flex justify-between items-center p-4 bg-white hover:bg-gray-50 rounded-md"
-                  >
-                    <div className="flex items-center">
-                      <Icon icon={faFileAlt} className="text-gray-500 mr-3" />
-                      <p className="font-medium text-gray-700">{file.name}</p>
-                    </div>
-                    <small className="text-gray-500">
-                      {bytesToKB(file.size)} KB
-                    </small>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p className="text-gray-500 text-center">
-                Nenhum arquivo encontrado.
-              </p>
-            )}
+            <List items={files} />
           </div>
         </div>
       </div>

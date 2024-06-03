@@ -1,17 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-/* <link
-rel="stylesheet"
-href="https://fontsly=Avenir:wght@400
-href="https://fontsly=Roboto:wght@400
-href="https://fontsly=Montserrat:wght@400
-href="https://fontsly=Lato:wght
-href="https://fontsly=Open+Sans:wght@400
-href="https://fontsly=Playfair+Display:wght
-href="https://fontsly=Nunito:wght@400
-href="https://fontsly=Montserrat+Alternates:wght@400;700&display=swap"
-/> */
 
 :root {
   color-scheme: light dark;
