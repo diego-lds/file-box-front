@@ -1,33 +1,36 @@
 import { useState, useEffect, useRef } from "react";
 import useFiles from "./hooks/useFiles";
-import { bytesToKB } from "./utils";
+import { formatBytes } from "./utils";
 import {
   faUpload,
   faTrashAlt,
   faBoxOpen,
 } from "@fortawesome/free-solid-svg-icons";
 import "./App.css";
-import Icon from "./components/icon";
+import Icon from "./components/Icon";
 import List from "./components/List";
 import { deleteFile } from "./services/fileService";
+import Sidebar from "./components/Sidebar";
 
 function App() {
   const [selectedFile, setSelectedFile] = useState(null);
   const fileInputRef = useRef(null);
   const { uploadFile, files, setFiles } = useFiles();
+  const [sortBy, setSorBy] = useState("document");
 
   const handleUploadFile = async (e) => {
     e.preventDefault();
     if (!selectedFile) return;
 
     try {
-      await uploadFile(selectedFile);
+      const response = await uploadFile(selectedFile);
+      console.log(response);
       setSelectedFile(null);
       if (fileInputRef.current) {
         fileInputRef.current.value = "";
       }
       // Fetch updated list of files
-      fetchFiles();
+      await fetchFiles();
     } catch (error) {
       console.error("Erro ao enviar arquivo:", error);
     }
@@ -38,7 +41,7 @@ function App() {
     if (!isConfirmed) return;
     try {
       await deleteFile("file-box", file.name);
-      fetchFiles();
+      await fetchFiles();
     } catch (error) {
       console.error("Erro ao deletar o arquivo:", error);
     }
@@ -51,7 +54,6 @@ function App() {
   const fetchFiles = async () => {
     try {
       const response = await fetch("http://localhost:3000/files");
-      console.log(response);
       const data = await response.json();
       setFiles(data.files);
     } catch (error) {
@@ -68,12 +70,13 @@ function App() {
       <div className="w-1/6 min-w-[250px] ">
         <aside>
           <div className="flex items-center justify-center m-4 text-indigo-700 gap-1">
-            <Icon icon={faBoxOpen} size={10} className="text-2xl" />
-            <p className="text-3xl">filebox</p>
+            <Icon icon={faBoxOpen} className="text-xl" />
+            <p className="text-2xl">filebox</p>
           </div>
+          <Sidebar files={files} />
         </aside>
       </div>
-      <div className="container bg-red-500 mx-auto py-8">
+      <div className="container mx-auto py-8">
         <div className="flex flex-col items-center">
           <div className="w-full max-w-3xl p-6 bg-white rounded shadow-md">
             <h2 className="text-xl font-semibold text-gray-700 text-center mb-6">
@@ -103,7 +106,7 @@ function App() {
                   <span className="font-bold">{selectedFile.name}</span>
                 </p>
                 <small className="text-gray-500">
-                  {bytesToKB(selectedFile.size)} KB
+                  {formatBytes(selectedFile.size)}
                 </small>
                 <button
                   className="block mt-2 text-indigo-500 hover:underline"
