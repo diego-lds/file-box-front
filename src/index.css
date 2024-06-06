@@ -11,10 +11,11 @@
   -moz-osx-font-smoothing: grayscale;
 }
 body {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Lato Sans", system-ui, Avenir, Helvetica, Arial;
 }
 a {
   font-weight: 500;
+
   color: #646cff;
   text-decoration: inherit;
 }

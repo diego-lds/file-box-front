@@ -20,26 +20,7 @@ const menuItems = [
 ];
 
 const Sidebar = ({ children }) => {
-  return (
-    <div className="w-64 bg-gray-100 text-slate-600 p-4">
-      {children}
-      {/* <ul className="space-y-2">
-        {menuItems.map((item, index) => (
-          <li
-            key={index}
-            className="flex items-center  p-2 rounded-lg hover:bg-gray-200 cursor-pointer"
-          >
-            <Icon
-              icon={item.icon}
-              className="mr-2  w-4 text-2xl text-gray-700"
-            />
-
-            <span className="text-gray-700">{item.label}</span>
-          </li>
-        ))}
-      </ul> */}
-    </div>
-  );
+  return <div className="w-64 bg-gray-100 text-slate-600 p-4">{children}</div>;
 };
 
 export default Sidebar;

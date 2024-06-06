@@ -5,7 +5,6 @@ import {
   faTrashAlt,
   faBoxOpen,
 } from "@fortawesome/free-solid-svg-icons";
-import "./App.css";
 import Icon from "./components/Icon";
 import List from "./components/List";
 import Sidebar from "./components/Sidebar";
@@ -60,7 +59,7 @@ function App() {
 
   return (
     <main className="flex min-h-screen bg-gray-100">
-      <div className="w-1/6 min-w-[250px] ">
+      <div className="w-1/6 min-w-[250px]">
         <aside>
           <Sidebar>
             <div className="flex items-center justify-center my-4 text-indigo-700 gap-1">

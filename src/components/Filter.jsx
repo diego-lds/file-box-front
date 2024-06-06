@@ -1,15 +1,12 @@
 import React from "react";
 import {
   faMusic,
-  faFilePdf,
   faFileArchive,
   faFile,
-  faFileVideo,
+  faVideo,
+  faFileZipper,
 } from "@fortawesome/free-solid-svg-icons";
-import { faCompress } from "@fortawesome/free-solid-svg-icons/faCompress";
-import { faCompressAlt } from "@fortawesome/free-solid-svg-icons/faCompressAlt";
-import { faCompressArrowsAlt } from "@fortawesome/free-solid-svg-icons/faCompressArrowsAlt";
-import { faFileZipper } from "@fortawesome/free-solid-svg-icons/faFileZipper";
+
 import Icon from "./Icon";
 
 const Filter = ({ setFilter, filter }) => {
@@ -50,7 +47,7 @@ const Filter = ({ setFilter, filter }) => {
             "document"
           )}`}
         >
-          <Icon icon={faFile} size={"1x"} className={"w-4"} />
+          <Icon icon={faFile} className={"w-4"} />
           <span>Documentos</span>
         </a>
       </li>
@@ -72,7 +69,7 @@ const Filter = ({ setFilter, filter }) => {
           onClick={() => handleFilterChange("video")}
           className={`flex items-center gap-4 py-2 px-4 ${isActive("video")}`}
         >
-          <Icon icon={faFileVideo} size={"1x"} className={"w-4"} />
+          <Icon icon={faVideo} size={"1x"} className={"w-4"} />
           <span>Vídeo</span>
         </a>
       </li>
