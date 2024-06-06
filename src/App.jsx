@@ -58,24 +58,23 @@ function App() {
   }, []);
 
   return (
-    <main className="flex min-h-screen bg-gray-100">
-      <div className="w-1/6 min-w-[250px]">
-        <aside>
-          <Sidebar>
-            <div className="flex items-center justify-center my-4 text-indigo-700 gap-1">
-              <Icon icon={faBoxOpen} className="text-xl" />
-              <p className="text-2xl">filebox</p>
-            </div>
+    <main className="flex min-h-screen">
+      <aside className="w-1/6  bg-slate-200 border border-r-slate-300">
+        <Sidebar className="">
+          <div className="flex  items-center justify-center my-4  gap-1">
+            <Icon icon={faBoxOpen} className="text-xl" />
+            <p className="">filebox</p>
+          </div>
+          <div className="flex mx-4">
             <Filter setFilter={setFilter} filter={filter} />
-          </Sidebar>
-        </aside>
-      </div>
+          </div>
+        </Sidebar>
+      </aside>
+
       <div className="container mx-auto py-8">
-        <div className="flex flex-col items-center">
-          <div className="w-full max-w-3xl p-6 bg-white rounded shadow-md">
-            <h2 className="text-xl font-semibold text-gray-700 text-center mb-6">
-              Carregue seu arquivo
-            </h2>
+        <div className="flex flex-col  items-center ">
+          <div className="w-full max-w-5xl p-6 bg-white rounded shadow-md">
+            <h2 className="text-center mb-6">Carregue seu arquivo</h2>
             <form
               onSubmit={handleUploadFile}
               className="flex flex-col items-center space-y-4"
@@ -94,14 +93,12 @@ function App() {
               </button>
             </form>
             {selectedFile && (
-              <div className="mt-4 text-center">
-                <p className="text-gray-700">
+              <div className="mt-4 text-center relative">
+                <p className="">
                   Nome do arquivo:{" "}
                   <span className="font-bold">{selectedFile.name}</span>
                 </p>
-                <small className="text-gray-500">
-                  {formatBytes(selectedFile.size)}
-                </small>
+                <small className="">{formatBytes(selectedFile.size)}</small>
                 <button
                   className="block mt-2 text-indigo-500 hover:underline"
                   onClick={() => {
@@ -116,10 +113,8 @@ function App() {
               </div>
             )}
           </div>
-          <div className="w-full max-w-3xl mt-10">
-            <h2 className="text-xl font-semibold text-gray-700 text-center mb-4">
-              Meus Arquivos
-            </h2>
+          <div className="w-full mt-10">
+            <h2 className=" text-center mb-4">Meus Arquivos</h2>
             <List
               items={filteredFiles}
               setItems={setFiles}

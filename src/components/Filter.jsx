@@ -5,6 +5,8 @@ import {
   faFile,
   faVideo,
   faFileZipper,
+  faFileAlt,
+  faBoxArchive,
 } from "@fortawesome/free-solid-svg-icons";
 
 import Icon from "./Icon";
@@ -14,63 +16,62 @@ const Filter = ({ setFilter, filter }) => {
     setFilter(filterType);
   };
 
-  const isActive = (myFilter) =>
-    filter === myFilter ? "text-indigo-600" : "text-slate-600";
+  const isActive = (myFilter) => (filter === myFilter ? "underline" : "");
 
   return (
-    <ul className="flex flex-col bg-gray-100  gap-1">
+    <ul className="flex flex-col gap-1">
       <li>
         <a
           href="#"
           onClick={() => handleFilterChange("")}
-          className={`flex items-center gap-4 py-2 px-4 ${isActive("")}`}
+          className={`flex items-center gap-4 py-1 px-4 ${isActive("")}`}
         >
-          <Icon icon={faFileArchive} size={"1x"} className={"w-4"} />
-          <span>Todos</span>
+          <Icon icon={faBoxArchive} className={"w-4"} />
+          <p>Todos arquivos</p>
         </a>
       </li>
       <li>
         <a
           href="#"
           onClick={() => handleFilterChange("audio")}
-          className={`flex items-center gap-4 py-2 px-4 ${isActive("audio")}`}
+          className={`flex items-center gap-4 py-1 px-4 ${isActive("audio")}`}
         >
-          <Icon icon={faMusic} size={"1x"} className={"w-4"} />
-          <span>Audio</span>
+          <Icon icon={faMusic} className={"w-4"} />
+          <p>Audio</p>
         </a>
       </li>
       <li>
         <a
           href="#"
           onClick={() => handleFilterChange("document")}
-          className={`flex items-center gap-4 py-2 px-4 ${isActive(
+          className={`flex items-center gap-4 py-1 px-4 ${isActive(
             "document"
           )}`}
         >
           <Icon icon={faFile} className={"w-4"} />
-          <span>Documentos</span>
+          <p>Documentos</p>
         </a>
       </li>
       <li>
         <a
           href="#"
           onClick={() => handleFilterChange("compressed")}
-          className={`flex items-center gap-4 py-2 px-4 ${isActive(
+          className={`flex items-center gap-4 py-1 px-4 ${isActive(
             "compressed"
           )}`}
         >
-          <Icon icon={faFileZipper} size={"1x"} className={"w-4"} />
-          <span>ZIP</span>
+          <Icon icon={faFileZipper} className={"w-4"} />
+          <p>Zipados</p>
         </a>
       </li>
       <li>
         <a
           href="#"
           onClick={() => handleFilterChange("video")}
-          className={`flex items-center gap-4 py-2 px-4 ${isActive("video")}`}
+          className={`flex items-center gap-4 py-1 px-4  ${isActive("video")}`}
         >
-          <Icon icon={faVideo} size={"1x"} className={"w-4"} />
-          <span>Vídeo</span>
+          <Icon icon={faVideo} className={"w-4"} />
+          <p>Vídeo</p>
         </a>
       </li>
     </ul>
