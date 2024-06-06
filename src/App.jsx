@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import useFiles from "./hooks/useFiles";
 import { formatBytes } from "./utils";
 import {
   faUpload,
@@ -9,60 +8,49 @@ import {
 import "./App.css";
 import Icon from "./components/Icon";
 import List from "./components/List";
-import { deleteFile } from "./services/fileService";
 import Sidebar from "./components/Sidebar";
+import {
+  deleteFileService,
+  fetchFilesService,
+  uploadFileService,
+} from "./services/fileService.js";
 
 function App() {
+  const [files, setFiles] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
   const fileInputRef = useRef(null);
-  const { uploadFile, files, setFiles } = useFiles();
-  const [sortBy, setSorBy] = useState("document");
 
   const handleUploadFile = async (e) => {
     e.preventDefault();
     if (!selectedFile) return;
 
-    try {
-      const response = await uploadFile(selectedFile);
-      console.log(response);
-      setSelectedFile(null);
-      if (fileInputRef.current) {
-        fileInputRef.current.value = "";
-      }
-      // Fetch updated list of files
-      await fetchFiles();
-    } catch (error) {
-      console.error("Erro ao enviar arquivo:", error);
+    await uploadFileService(selectedFile);
+    await handleFetchFiles();
+
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
     }
+
+    setSelectedFile(null);
   };
 
   const handleDeleteFile = async (file) => {
-    const isConfirmed = window.confirm(`Deletar arquivo ${file.name}?`);
-    if (!isConfirmed) return;
-    try {
-      await deleteFile("file-box", file.name);
-      await fetchFiles();
-    } catch (error) {
-      console.error("Erro ao deletar o arquivo:", error);
-    }
+    if (!window.confirm(`Deletar arquivo ${file.name}?`)) return;
+
+    await deleteFileService(file);
+    await handleFetchFiles();
   };
 
-  const handleOnChange = (event) => {
+  const handleSelectFile = () => {
     setSelectedFile(event.target.files[0]);
   };
-
-  const fetchFiles = async () => {
-    try {
-      const response = await fetch("http://localhost:3000/files");
-      const data = await response.json();
-      setFiles(data.files);
-    } catch (error) {
-      console.error("Erro ao buscar arquivos:", error);
-    }
+  const handleFetchFiles = async () => {
+    const data = await fetchFilesService();
+    setFiles(data);
   };
 
   useEffect(() => {
-    fetchFiles();
+    handleFetchFiles();
   }, []);
 
   return (
@@ -73,7 +61,7 @@ function App() {
             <Icon icon={faBoxOpen} className="text-xl" />
             <p className="text-2xl">filebox</p>
           </div>
-          <Sidebar files={files} />
+          <Sidebar />
         </aside>
       </div>
       <div className="container mx-auto py-8">
@@ -88,7 +76,7 @@ function App() {
             >
               <input
                 type="file"
-                onChange={handleOnChange}
+                onChange={handleSelectFile}
                 ref={fileInputRef}
                 className="w-full p-2 border border-gray-300 rounded-md"
               />

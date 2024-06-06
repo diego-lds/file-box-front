@@ -1,47 +1,43 @@
 import axios from "axios";
 
-const api = axios.create({
-  baseURL: "http://localhost:3000",
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
+const BASE_URL = "http://localhost:3000";
 
-export const uploadFile = async (bucketName, key, fileContent) => {
+export const fetchFilesService = async () => {
   try {
-    const params = {
-      Bucket: bucketName,
-      Key: key,
-      Body: fileContent,
-    };
-    const data = await s3Client.send(new PutObjectCommand(params));
-    return data.ETag;
-  } catch (err) {
-    console.error("Erro no upload:", err);
-    throw err;
+    const response = await axios.get(`${BASE_URL}/files`);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao buscar os arquivos:", error);
+    throw error;
   }
 };
 
-export const getFile = async (bucketName, key) => {
+export const deleteFileService = async (file) => {
   try {
-    const params = {
-      Bucket: bucketName,
-      Key: key,
-    };
-    const data = await s3Client.send(new GetObjectCommand(params));
-    return data.Body;
-  } catch (err) {
-    console.error("Erro ao obter o arquivo:", err);
-    throw err;
-  }
-};
-
-export const deleteFile = async (bucketName, key) => {
-  try {
-    const response = await api.delete(`/files/${bucketName}/${key}`);
+    const response = await axios.delete(
+      `${BASE_URL}/files/file-box/${file.name}`
+    );
     return response.data;
   } catch (error) {
     console.error("Erro ao deletar o arquivo:", error);
+    throw error;
+  }
+};
+
+export const uploadFileService = async (file) => {
+  const formData = new FormData();
+  formData.append("file", file);
+
+  try {
+    const response = await axios.post(`${BASE_URL}/upload`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao enviar arquivo:", error);
     throw error;
   }
 };
