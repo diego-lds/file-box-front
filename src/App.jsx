@@ -14,11 +14,17 @@ import {
   fetchFilesService,
   uploadFileService,
 } from "./services/fileService.js";
+import Filter from "./components/Filter.jsx";
 
 function App() {
   const [files, setFiles] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
+  const [filter, setFilter] = useState("");
   const fileInputRef = useRef(null);
+
+  const filteredFiles = files.filter(
+    (file) => filter === "" || file.type === filter
+  );
 
   const handleUploadFile = async (e) => {
     e.preventDefault();
@@ -29,9 +35,8 @@ function App() {
 
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
+      setSelectedFile(null);
     }
-
-    setSelectedFile(null);
   };
 
   const handleDeleteFile = async (file) => {
@@ -57,11 +62,13 @@ function App() {
     <main className="flex min-h-screen bg-gray-100">
       <div className="w-1/6 min-w-[250px] ">
         <aside>
-          <div className="flex items-center justify-center m-4 text-indigo-700 gap-1">
-            <Icon icon={faBoxOpen} className="text-xl" />
-            <p className="text-2xl">filebox</p>
-          </div>
-          <Sidebar />
+          <Sidebar>
+            <div className="flex items-center justify-center my-4 text-indigo-700 gap-1">
+              <Icon icon={faBoxOpen} className="text-xl" />
+              <p className="text-2xl">filebox</p>
+            </div>
+            <Filter setFilter={setFilter} filter={filter} />
+          </Sidebar>
         </aside>
       </div>
       <div className="container mx-auto py-8">
@@ -114,7 +121,11 @@ function App() {
             <h2 className="text-xl font-semibold text-gray-700 text-center mb-4">
               Meus Arquivos
             </h2>
-            <List items={files} onDelete={handleDeleteFile} />
+            <List
+              items={filteredFiles}
+              setItems={setFiles}
+              onDelete={handleDeleteFile}
+            />
           </div>
         </div>
       </div>

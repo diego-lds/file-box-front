@@ -19,10 +19,11 @@ const menuItems = [
   { label: "Outros", icon: faFolder, types: [] },
 ];
 
-const Sidebar = () => {
+const Sidebar = ({ children }) => {
   return (
-    <div className="w-64 bg-gray-100 p-4">
-      <ul className="space-y-2">
+    <div className="w-64 bg-gray-100 text-slate-600 p-4">
+      {children}
+      {/* <ul className="space-y-2">
         {menuItems.map((item, index) => (
           <li
             key={index}
@@ -36,7 +37,7 @@ const Sidebar = () => {
             <span className="text-gray-700">{item.label}</span>
           </li>
         ))}
-      </ul>
+      </ul> */}
     </div>
   );
 };

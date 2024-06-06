@@ -5,7 +5,6 @@ const BASE_URL = "http://localhost:3000";
 export const fetchFilesService = async () => {
   try {
     const response = await axios.get(`${BASE_URL}/files`);
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error("Erro ao buscar os arquivos:", error);
