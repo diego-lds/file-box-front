@@ -1,6 +1,10 @@
 import { useState, useEffect, useRef } from "react";
 import { formatBytes } from "./utils";
-import { faTrashAlt, faBoxOpen } from "@fortawesome/free-solid-svg-icons";
+import {
+  faTrashAlt,
+  faBoxOpen,
+  faUpload,
+} from "@fortawesome/free-solid-svg-icons";
 import Icon from "./components/Icon";
 import List from "./components/List";
 import Sidebar from "./components/Sidebar";
@@ -10,7 +14,11 @@ import {
   uploadFileService,
 } from "./services/fileService.js";
 import Filter from "./components/Filter.jsx";
-import Uploader from "./components/Uploader.jsx";
+import Header from "./components/Header.jsx";
+import SearchBar from "./components/SearchBar.jsx";
+import Photo from "./assets/react.svg";
+import UserProfile from "./components/UserProfile.jsx";
+import { ToastContainer, toast } from "react-toastify";
 
 function App() {
   const [files, setFiles] = useState([]);
@@ -26,12 +34,12 @@ function App() {
     e.preventDefault();
     if (!selectedFile) return;
 
-    await uploadFileService(selectedFile);
-    await handleFetchFiles();
-
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-      setSelectedFile(null);
+    const response = await uploadFileService(selectedFile);
+    console.log(response);
+    if (response.status === 200) {
+      await handleFetchFiles();
+      handleClearInput();
+      toast.success("Arquivo salvo com sucesso!");
     }
   };
 
@@ -39,6 +47,7 @@ function App() {
     if (!window.confirm(`Deletar arquivo ${file.name}?`)) return;
 
     await deleteFileService(file);
+    toast.info("Arquivo deletado com sucesso!");
     await handleFetchFiles();
   };
 
@@ -51,8 +60,10 @@ function App() {
   };
 
   const handleClearInput = () => {
-    fileInputRef.current.value = "";
     setSelectedFile(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
   };
 
   useEffect(() => {
@@ -61,7 +72,7 @@ function App() {
 
   return (
     <main className="flex min-h-screen bg-whiter">
-      <aside className="w-1/6  bg-slate-200 border border-r-slate-300">
+      <aside className="w-1/6 bg-slate-200 border border-r-slate-300">
         <Sidebar className="">
           <div className="flex items-center justify-center my-8  gap-2 text-violet ">
             <Icon icon={faBoxOpen} className="text-3xl w-8" />
@@ -73,15 +84,31 @@ function App() {
         </Sidebar>
       </aside>
 
-      <div className="container mx-auto py-8">
-        <div className="flex flex-col  items-center">
+      <div className="container mx-auto p-2 ">
+        <Header className={"flex items-center justify-between"}>
+          <SearchBar />
+          <UserProfile name="Diego Lopes" photo={Photo} />
+        </Header>
+        <div className="flex flex-col items-center mt-4">
           <h2 className="text-center mb-6">Carregue seu arquivo</h2>
           <div className="w-full max-w-2xl p-6 bg-white rounded-xl  border-2  border-dashed animate-border-light">
-            <Uploader
-              onSelect={handleSelectFile}
-              onUpload={handleUploadFile}
-              ref={fileInputRef}
-            />
+            <form
+              onSubmit={handleUploadFile}
+              className="flex flex-col items-center space-y-4"
+            >
+              <input
+                type="file"
+                onChange={handleSelectFile}
+                ref={fileInputRef}
+                className="w-full p-2 border border-gray-300 rounded-md"
+              />
+              <button
+                type="submit"
+                className="w-full py-2 px-4 bg-violet text-white rounded-md hover:bg-purple-800"
+              >
+                <Icon icon={faUpload} className="mr-2" /> Enviar
+              </button>
+            </form>
 
             {selectedFile && (
               <div className="mt-4 text-center relative">
@@ -109,6 +136,7 @@ function App() {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </main>
   );
 }

@@ -29,12 +29,12 @@ export const uploadFileService = async (file) => {
   formData.append("file", file);
 
   try {
-    const response = await axios.post(`${BASE_URL}/upload`, formData, {
+    const response = await axios.post(`${BASE_URL}/files/upload`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
     });
-    return response.data;
+    return response;
   } catch (error) {
     console.error("Erro ao enviar arquivo:", error);
     throw error;
