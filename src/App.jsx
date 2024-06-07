@@ -1,10 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { formatBytes } from "./utils";
-import {
-  faUpload,
-  faTrashAlt,
-  faBoxOpen,
-} from "@fortawesome/free-solid-svg-icons";
+import { faTrashAlt, faBoxOpen } from "@fortawesome/free-solid-svg-icons";
 import Icon from "./components/Icon";
 import List from "./components/List";
 import Sidebar from "./components/Sidebar";
@@ -14,6 +10,7 @@ import {
   uploadFileService,
 } from "./services/fileService.js";
 import Filter from "./components/Filter.jsx";
+import Uploader from "./components/Uploader.jsx";
 
 function App() {
   const [files, setFiles] = useState([]);
@@ -53,6 +50,11 @@ function App() {
     setFiles(data);
   };
 
+  const handleClearInput = () => {
+    fileInputRef.current.value = "";
+    setSelectedFile(null);
+  };
+
   useEffect(() => {
     handleFetchFiles();
   }, []);
@@ -75,23 +77,12 @@ function App() {
         <div className="flex flex-col  items-center">
           <h2 className="text-center mb-6">Carregue seu arquivo</h2>
           <div className="w-full max-w-2xl p-6 bg-white rounded-xl  border-2  border-dashed animate-border-light">
-            <form
-              onSubmit={handleUploadFile}
-              className="flex flex-col items-center space-y-4"
-            >
-              <input
-                type="file"
-                onChange={handleSelectFile}
-                ref={fileInputRef}
-                className="w-full p-2 border border-gray-300 rounded-md"
-              />
-              <button
-                type="submit"
-                className="w-full py-2 px-4 bg-violet text-white rounded-md hover:bg-purple-800"
-              >
-                <Icon icon={faUpload} className="mr-2" /> Enviar
-              </button>
-            </form>
+            <Uploader
+              onSelect={handleSelectFile}
+              onUpload={handleUploadFile}
+              ref={fileInputRef}
+            />
+
             {selectedFile && (
               <div className="mt-4 text-center relative">
                 <p className="">
@@ -101,15 +92,9 @@ function App() {
                 <small className="">{formatBytes(selectedFile.size)}</small>
                 <button
                   className="block mt-2 text-indigo-500 hover:underline"
-                  onClick={() => {
-                    setSelectedFile(null);
-                    if (fileInputRef.current) {
-                      fileInputRef.current.value = "";
-                    }
-                  }}
+                  onClick={() => handleClearInput()}
                 >
-                  <Icon icon={faTrashAlt} className="mr-2 hover:text-red-500" />{" "}
-                  Remover arquivo
+                  <Icon icon={faTrashAlt} className="mr-2" /> Remover arquivo
                 </button>
               </div>
             )}
