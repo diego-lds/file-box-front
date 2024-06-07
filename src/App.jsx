@@ -58,23 +58,23 @@ function App() {
   }, []);
 
   return (
-    <main className="flex min-h-screen">
+    <main className="flex min-h-screen bg-whiter">
       <aside className="w-1/6  bg-slate-200 border border-r-slate-300">
         <Sidebar className="">
-          <div className="flex  items-center justify-center my-4  gap-1">
-            <Icon icon={faBoxOpen} className="text-xl" />
-            <p className="">filebox</p>
+          <div className="flex items-center justify-center my-8  gap-2 text-violet ">
+            <Icon icon={faBoxOpen} className="text-3xl w-8" />
+            <h1 className="text-2xl">filebox</h1>
           </div>
-          <div className="flex mx-4">
+          <div className="flex mx-4 my-8">
             <Filter setFilter={setFilter} filter={filter} />
           </div>
         </Sidebar>
       </aside>
 
       <div className="container mx-auto py-8">
-        <div className="flex flex-col  items-center ">
-          <div className="w-full max-w-5xl p-6 bg-white rounded shadow-md">
-            <h2 className="text-center mb-6">Carregue seu arquivo</h2>
+        <div className="flex flex-col  items-center">
+          <h2 className="text-center mb-6">Carregue seu arquivo</h2>
+          <div className="w-full max-w-2xl p-6 bg-white rounded-xl  border-2  border-dashed animate-border-light">
             <form
               onSubmit={handleUploadFile}
               className="flex flex-col items-center space-y-4"
@@ -87,7 +87,7 @@ function App() {
               />
               <button
                 type="submit"
-                className="w-full py-2 px-4 bg-indigo-500 text-white rounded-md hover:bg-indigo-600"
+                className="w-full py-2 px-4 bg-violet text-white rounded-md hover:bg-purple-800"
               >
                 <Icon icon={faUpload} className="mr-2" /> Enviar
               </button>
@@ -108,7 +108,8 @@ function App() {
                     }
                   }}
                 >
-                  <Icon icon={faTrashAlt} className="mr-2" /> Remover arquivo
+                  <Icon icon={faTrashAlt} className="mr-2 hover:text-red-500" />{" "}
+                  Remover arquivo
                 </button>
               </div>
             )}

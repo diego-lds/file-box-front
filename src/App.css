@@ -9,5 +9,30 @@
 }
 
 .read-the-docs {
-  color: #888;
+  color: "#008efa";
+}
+
+@keyframes borderGlow {
+  0% {
+    border-color: transparent;
+  }
+  50% {
+    border-color: #7c3aed;
+  }
+  100% {
+    border-color: transparent;
+  }
+}
+
+.border-glow {
+  border-width: 2px;
+  border-style: dashed;
+  border-color: transparent;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  animation: borderGlow 3s linear infinite;
+  pointer-events: none;
 }

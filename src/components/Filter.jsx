@@ -12,68 +12,62 @@ import {
 import Icon from "./Icon";
 
 const Filter = ({ setFilter, filter }) => {
+  const navList = [
+    {
+      type: "",
+      label: "Todos os arquivos",
+      icon: faBoxArchive,
+    },
+    {
+      type: "audio",
+      label: "Áudio",
+      icon: faMusic,
+    },
+    {
+      type: "document",
+      label: "Documentos",
+      icon: faFileAlt,
+    },
+    {
+      type: "compressed",
+      label: "Comprimidos",
+      icon: faFileZipper,
+    },
+    {
+      type: "video",
+      label: "Vídeo",
+      icon: faVideo,
+    },
+  ];
+
   const handleFilterChange = (filterType) => {
     setFilter(filterType);
   };
 
-  const isActive = (myFilter) => (filter === myFilter ? "underline" : "");
+  const isActive = (type) => {
+    return filter === type ? "bg-white text-state-500" : "text-blue-500";
+  };
+
+  const renderList = (nav) => {
+    return (
+      <li key={nav.type}>
+        <a
+          href="#"
+          onClick={() => handleFilterChange(nav.type)}
+          className={`flex items-center gap-4 py-1 px-4 rounded-md transition-colors duration-200 ${isActive(
+            nav.type
+          )}`}
+        >
+          <Icon icon={nav.icon} className={"w-4"} />
+          <p>{nav.label}</p>
+        </a>
+      </li>
+    );
+  };
 
   return (
-    <ul className="flex flex-col gap-1">
-      <li>
-        <a
-          href="#"
-          onClick={() => handleFilterChange("")}
-          className={`flex items-center gap-4 py-1 px-4 ${isActive("")}`}
-        >
-          <Icon icon={faBoxArchive} className={"w-4"} />
-          <p>Todos arquivos</p>
-        </a>
-      </li>
-      <li>
-        <a
-          href="#"
-          onClick={() => handleFilterChange("audio")}
-          className={`flex items-center gap-4 py-1 px-4 ${isActive("audio")}`}
-        >
-          <Icon icon={faMusic} className={"w-4"} />
-          <p>Audio</p>
-        </a>
-      </li>
-      <li>
-        <a
-          href="#"
-          onClick={() => handleFilterChange("document")}
-          className={`flex items-center gap-4 py-1 px-4 ${isActive(
-            "document"
-          )}`}
-        >
-          <Icon icon={faFile} className={"w-4"} />
-          <p>Documentos</p>
-        </a>
-      </li>
-      <li>
-        <a
-          href="#"
-          onClick={() => handleFilterChange("compressed")}
-          className={`flex items-center gap-4 py-1 px-4 ${isActive(
-            "compressed"
-          )}`}
-        >
-          <Icon icon={faFileZipper} className={"w-4"} />
-          <p>Zipados</p>
-        </a>
-      </li>
-      <li>
-        <a
-          href="#"
-          onClick={() => handleFilterChange("video")}
-          className={`flex items-center gap-4 py-1 px-4  ${isActive("video")}`}
-        >
-          <Icon icon={faVideo} className={"w-4"} />
-          <p>Vídeo</p>
-        </a>
-      </li>
+    <ul className="flex flex-col gap-1 text-violet">
+      {navList.map((nav) => renderList(nav))}
     </ul>
   );
 };

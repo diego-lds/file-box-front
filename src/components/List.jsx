@@ -31,7 +31,7 @@ const List = ({ items, onDelete }) => {
   ));
 
   return (
-    <ul className="divide-y divide-gray-200  w-full">
+    <ul className="divide-y divide-gray-200 w-full list-container">
       {items.length ? list : <Empty />}
     </ul>
   );
@@ -39,26 +39,28 @@ const List = ({ items, onDelete }) => {
 
 const ListItem = ({ item, onDelete }) => {
   return (
-    <li className="flex justify-between items-center p-2 ">
-      <div className="flex items-center">
-        <Icon icon={types[item.extension] || faFileAlt} className=" mr-2" />
-        <p className="">{item.name}</p>
+    <li className="flex justify-between items-center p-2 mx-4 transition duration-300 ease-in-out transform hover:bg-gray-100">
+      <div className="flex items-center flex-1">
+        <Icon icon={types[item.extension] || faFileAlt} className="mr-4" />
+        <p className="flex-grow">{item.name}</p>
+        <small className="mx-4">{formatBytes(item.size)}</small>
       </div>
-      <small className="">{formatBytes(item.size)}</small>
-      <div className="flex items-center">
-        <a href={item.url} download className="">
-          <Icon icon={faDownload} className="mr-3" />
+      <div>
+        <a href={item.url} download className="mr-3">
+          <Icon icon={faDownload} className="" />
         </a>
-        <button onClick={() => onDelete(item)} className=" hover:text-gray-700">
-          <Icon icon={faTrashAlt} className="mr-3" />
+        <button
+          alt="Apagar arquivo 🗑️???"
+          onClick={() => onDelete(item)}
+          className="hover:text-gray-700"
+        >
+          <Icon icon={faTrashAlt} className="hover:text-red-500" />
         </button>
       </div>
     </li>
   );
 };
 
-const Empty = () => (
-  <li className=" text-center">Nenhum arquivo encontrado.</li>
-);
+const Empty = () => <li className="text-center">Nenhum arquivo encontrado.</li>;
 
 export default List;
