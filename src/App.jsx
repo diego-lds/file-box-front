@@ -19,10 +19,11 @@ import SearchBar from "./components/SearchBar.jsx";
 import Photo from "./assets/react.svg";
 import UserProfile from "./components/UserProfile.jsx";
 import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [files, setFiles] = useState([]);
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedFile, setSelectedFile] = useState();
   const [filter, setFilter] = useState("");
   const fileInputRef = useRef(null);
 
@@ -32,31 +33,45 @@ function App() {
 
   const handleUploadFile = async (e) => {
     e.preventDefault();
-    if (!selectedFile) return;
 
-    const response = await uploadFileService(selectedFile);
-    console.log(response);
-    if (response.status === 200) {
+    if (!selectedFile) {
+      toast.warn("Nenhum arquivo selecionado.");
+      return;
+    }
+
+    try {
+      await uploadFileService(selectedFile);
       await handleFetchFiles();
       handleClearInput();
-      toast.success("Arquivo salvo com sucesso!");
+      toast.success("Arquivo enviado com sucesso!");
+    } catch (error) {
+      toast.error("Erro ao enviar o arquivo.");
     }
   };
 
   const handleDeleteFile = async (file) => {
     if (!window.confirm(`Deletar arquivo ${file.name}?`)) return;
 
-    await deleteFileService(file);
-    toast.info("Arquivo deletado com sucesso!");
-    await handleFetchFiles();
+    try {
+      await deleteFileService(file);
+      toast.success("Arquivo deletado com sucesso!");
+      await handleFetchFiles();
+    } catch (error) {
+      toast.error("Erro ao deletar o arquivo.");
+    }
   };
 
-  const handleSelectFile = () => {
+  const handleSelectFile = (event) => {
     setSelectedFile(event.target.files[0]);
   };
+
   const handleFetchFiles = async () => {
-    const data = await fetchFilesService();
-    setFiles(data);
+    try {
+      const data = await fetchFilesService();
+      setFiles(data);
+    } catch (error) {
+      toast.error("Erro ao buscar os arquivos.");
+    }
   };
 
   const handleClearInput = () => {
@@ -73,8 +88,8 @@ function App() {
   return (
     <main className="flex min-h-screen bg-whiter">
       <aside className="w-1/6 bg-slate-200 border border-r-slate-300">
-        <Sidebar className="">
-          <div className="flex items-center justify-center my-8  gap-2 text-violet ">
+        <Sidebar>
+          <div className="flex items-center justify-center my-8 gap-2 text-violet">
             <Icon icon={faBoxOpen} className="text-3xl w-8" />
             <h1 className="text-2xl">filebox</h1>
           </div>
@@ -84,14 +99,14 @@ function App() {
         </Sidebar>
       </aside>
 
-      <div className="container mx-auto p-2 ">
-        <Header className={"flex items-center justify-between"}>
+      <div className="container mx-auto p-2">
+        <Header className="flex items-center justify-between">
           <SearchBar />
           <UserProfile name="Diego Lopes" photo={Photo} />
         </Header>
         <div className="flex flex-col items-center mt-4">
           <h2 className="text-center mb-6">Carregue seu arquivo</h2>
-          <div className="w-full max-w-2xl p-6 bg-white rounded-xl  border-2  border-dashed animate-border-light">
+          <div className="w-full max-w-2xl p-6 bg-white rounded-xl border-2 border-dashed animate-border-light">
             <form
               onSubmit={handleUploadFile}
               className="flex flex-col items-center space-y-4"
@@ -119,7 +134,7 @@ function App() {
                 <small className="">{formatBytes(selectedFile.size)}</small>
                 <button
                   className="block mt-2 text-indigo-500 hover:underline"
-                  onClick={() => handleClearInput()}
+                  onClick={handleClearInput}
                 >
                   <Icon icon={faTrashAlt} className="mr-2" /> Remover arquivo
                 </button>
@@ -127,12 +142,8 @@ function App() {
             )}
           </div>
           <div className="w-full mt-10">
-            <h2 className=" text-center mb-4">Meus Arquivos</h2>
-            <List
-              items={filteredFiles}
-              setItems={setFiles}
-              onDelete={handleDeleteFile}
-            />
+            <h2 className="text-center mb-4">Meus Arquivos</h2>
+            <List items={filteredFiles} onDelete={handleDeleteFile} />
           </div>
         </div>
       </div>

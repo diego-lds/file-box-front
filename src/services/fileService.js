@@ -23,7 +23,6 @@ export const deleteFileService = async (file) => {
     throw error;
   }
 };
-
 export const uploadFileService = async (file) => {
   const formData = new FormData();
   formData.append("file", file);
@@ -36,7 +35,7 @@ export const uploadFileService = async (file) => {
     });
     return response;
   } catch (error) {
-    console.error("Erro ao enviar arquivo:", error);
+    console.error("Erro ao enviar arquivos:", error);
     throw error;
   }
 };
