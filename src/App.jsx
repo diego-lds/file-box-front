@@ -63,17 +63,21 @@ function App() {
         </Sidebar>
       </aside>
 
-      <div className="container mx-auto p-2">
-        <Header className="flex items-center justify-between">
-          <SearchBar />
-          <UserProfile name="Diego Lopes" photo={Photo} />
-        </Header>
-        <div className="flex flex-col items-center mt-4">
-          <FileUploader />
-          <div className="w-full mt-10">
-            <h2 className="text-center mb-4">Meus Arquivos</h2>
-            <List items={filteredFiles} onDelete={handleDeleteFile} />
+      <div className="container mx-auto p-2 flex flex-col justify-between min-h-screen">
+        <div>
+          <Header className="flex items-center justify-between">
+            <SearchBar />
+            <UserProfile name="Diego Lopes" photo={Photo} />
+          </Header>
+          <div className="flex flex-col items-center mt-4">
+            <div className="w-full mt-10">
+              <h2 className="text-center mb-4">Meus Arquivos</h2>
+              <List items={filteredFiles} onDelete={handleDeleteFile} />
+            </div>
           </div>
+        </div>
+        <div className="w-full  flex justify-center mt-4">
+          <FileUploader />
         </div>
       </div>
       <ToastContainer />
