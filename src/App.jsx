@@ -1,17 +1,11 @@
 import { useState, useEffect, useRef } from "react";
-import { formatBytes } from "./utils";
-import {
-  faTrashAlt,
-  faBoxOpen,
-  faUpload,
-} from "@fortawesome/free-solid-svg-icons";
+import { faBoxOpen } from "@fortawesome/free-solid-svg-icons";
 import Icon from "./components/Icon";
 import List from "./components/List";
 import Sidebar from "./components/Sidebar";
 import {
   deleteFileService,
   fetchFilesService,
-  uploadFileService,
 } from "./services/fileService.js";
 import Filter from "./components/Filter.jsx";
 import Header from "./components/Header.jsx";
@@ -20,34 +14,15 @@ import Photo from "./assets/react.svg";
 import UserProfile from "./components/UserProfile.jsx";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import FileUploader from "./components/FileUploader.jsx";
 
 function App() {
   const [files, setFiles] = useState([]);
-  const [selectedFile, setSelectedFile] = useState();
   const [filter, setFilter] = useState("");
-  const fileInputRef = useRef(null);
 
   const filteredFiles = files.filter(
     (file) => filter === "" || file.type === filter
   );
-
-  const handleUploadFile = async (e) => {
-    e.preventDefault();
-
-    if (!selectedFile) {
-      toast.warn("Nenhum arquivo selecionado.");
-      return;
-    }
-
-    try {
-      await uploadFileService(selectedFile);
-      await handleFetchFiles();
-      handleClearInput();
-      toast.success("Arquivo enviado com sucesso!");
-    } catch (error) {
-      toast.error("Erro ao enviar o arquivo.");
-    }
-  };
 
   const handleDeleteFile = async (file) => {
     if (!window.confirm(`Deletar arquivo ${file.name}?`)) return;
@@ -61,23 +36,12 @@ function App() {
     }
   };
 
-  const handleSelectFile = (event) => {
-    setSelectedFile(event.target.files[0]);
-  };
-
   const handleFetchFiles = async () => {
     try {
       const data = await fetchFilesService();
       setFiles(data);
     } catch (error) {
       toast.error("Erro ao buscar os arquivos.");
-    }
-  };
-
-  const handleClearInput = () => {
-    setSelectedFile(null);
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
     }
   };
 
@@ -105,42 +69,7 @@ function App() {
           <UserProfile name="Diego Lopes" photo={Photo} />
         </Header>
         <div className="flex flex-col items-center mt-4">
-          <h2 className="text-center mb-6">Carregue seu arquivo</h2>
-          <div className="w-full max-w-2xl p-6 bg-white rounded-xl border-2 border-dashed animate-border-light">
-            <form
-              onSubmit={handleUploadFile}
-              className="flex flex-col items-center space-y-4"
-            >
-              <input
-                type="file"
-                onChange={handleSelectFile}
-                ref={fileInputRef}
-                className="w-full p-2 border border-gray-300 rounded-md"
-              />
-              <button
-                type="submit"
-                className="w-full py-2 px-4 bg-violet text-white rounded-md hover:bg-purple-800"
-              >
-                <Icon icon={faUpload} className="mr-2" /> Enviar
-              </button>
-            </form>
-
-            {selectedFile && (
-              <div className="mt-4 text-center relative">
-                <p className="">
-                  Nome do arquivo:{" "}
-                  <span className="font-bold">{selectedFile.name}</span>
-                </p>
-                <small className="">{formatBytes(selectedFile.size)}</small>
-                <button
-                  className="block mt-2 text-indigo-500 hover:underline"
-                  onClick={handleClearInput}
-                >
-                  <Icon icon={faTrashAlt} className="mr-2" /> Remover arquivo
-                </button>
-              </div>
-            )}
-          </div>
+          <FileUploader />
           <div className="w-full mt-10">
             <h2 className="text-center mb-4">Meus Arquivos</h2>
             <List items={filteredFiles} onDelete={handleDeleteFile} />
