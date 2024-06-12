@@ -75,15 +75,17 @@ function HomePage() {
     }
   };
 
+  const { name, picture } = JSON.parse(localStorage.getItem("user"));
+
   useEffect(() => {
     handleFetchFiles();
   }, []);
-
+  console.log(name, picture);
   return (
     <main className="flex bg-whiter">
-      <aside className="w-1/6 bg-indigo-100 container ">
+      <aside className="w-1/6 bg-zinc-200 container ">
         <Sidebar>
-          <div className="flex items-center justify-center gap-2 text-indigo-700 my-8">
+          <div className="flex items-center justify-center gap-2 text-otherBlue my-8">
             <Icon icon={faBoxOpen} className="text-3xl w-8" />
             <h1 className="text-2xl">filebox</h1>
           </div>
@@ -97,7 +99,7 @@ function HomePage() {
         <div>
           <Header className="flex items-center justify-between p-4">
             <SearchBar />
-            <UserProfile name="Diego Lopes" photo={Photo} />
+            {picture && <UserProfile name={name} picture={picture} />}
           </Header>
           <div className="flex flex-col items-center">
             <div className="w-full mt-10">

@@ -41,7 +41,7 @@ const FileUploader = ({
         >
           <Icon
             icon={faCloudUploadAlt}
-            className="text-4xl text-indigo-700 mr-2"
+            className="text-4xl text-otherBlue mr-2"
           />
           <span className="text-lg">Selecionar arquivos</span>
         </div>
@@ -62,7 +62,7 @@ const FileUploader = ({
           <div className="flex justify-center items-center gap-2 p-2 bg-gray-200 rounded-full">
             <span className="text-gray"> arquivo: {selectedFile.name}</span>
             <button
-              className="text-indigo-700 hover:underline flex items-center"
+              className="text-otherBlue hover:underline flex items-center"
               onClick={clearInput}
             >
               <Icon icon={faTrashAlt} className="mr-2" /> Remover arquivo

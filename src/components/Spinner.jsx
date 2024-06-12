@@ -7,7 +7,7 @@ const Spinner = () => {
     <div className="ml-2 inline-block">
       <FontAwesomeIcon
         icon={faSpinner}
-        className="animate-spin text-indigo-700 h-4 w-4"
+        className="animate-spin text-otherBlue h-4 w-4"
       />
     </div>
   );

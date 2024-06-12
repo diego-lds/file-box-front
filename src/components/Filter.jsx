@@ -66,7 +66,7 @@ const Filter = ({ setFilter, filter }) => {
   };
 
   return (
-    <ul className="flex flex-col w-full gap-1  text-indigo-700">
+    <ul className="flex flex-col w-full gap-1  text-otherBlue">
       {navList.map((nav) => renderList(nav))}
     </ul>
   );

@@ -8,6 +8,9 @@ export default {
         blue: "#27b3dc",
         musgo: "#4b8485",
         whiter: "#fdfdfa",
+        back: "#f0f4f9",
+        coolBlue: "#3884F6",
+        otherBlue: "#043C76",
       },
       animation: {
         "border-light": "borderLight 3s ease infinite",

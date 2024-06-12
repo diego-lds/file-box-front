@@ -11,8 +11,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 body {
-  font-family: Consolas, system-ui, Avenir, Helvetica, Arial;
+  font-family: "Lato", system-ui, Avenir, Helvetica, Arial;
   line-height: 1.6;
+  font-size: 14px;
 }
 
 p {
