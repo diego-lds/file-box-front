@@ -48,10 +48,10 @@ const ListItem = ({ item, onDelete }) => {
   };
 
   return (
-    <li className="flex justify-between items-center p-2 mx-4 transition duration-300 ease-in-out transform hover:bg-gray-100">
-      <div className="flex items-center flex-1">
+    <li className="flex justify-between items-center p-2 mx-4 text-slate-900 hover:bg-gray-100">
+      <div className="flex items-center flex-1 text-slate-900">
         <Icon icon={types[extension] || faFileAlt} className="mr-4" />
-        <p className="flex-grow">{name}</p>
+        <p className="flex-grow ">{name}</p>
         <small className="mx-4">{formatBytes(size)}</small>
       </div>
       <div>

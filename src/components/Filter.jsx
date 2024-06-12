@@ -45,7 +45,7 @@ const Filter = ({ setFilter, filter }) => {
   };
 
   const isActive = (type) => {
-    return filter === type ? "bg-white text-state-500" : "text-blue-500";
+    return filter === type ? "bg-white" : "";
   };
 
   const renderList = (nav) => {
@@ -54,7 +54,7 @@ const Filter = ({ setFilter, filter }) => {
         <a
           href="#"
           onClick={() => handleFilterChange(nav.type)}
-          className={`flex items-center gap-4 py-1 px-4 rounded-md transition-colors duration-200 ${isActive(
+          className={`flex items-center gap-4 py-1 px-4 hover:bg-indigo-50  ${isActive(
             nav.type
           )}`}
         >
@@ -66,7 +66,7 @@ const Filter = ({ setFilter, filter }) => {
   };
 
   return (
-    <ul className="flex flex-col gap-1 text-violet">
+    <ul className="flex flex-col w-full gap-1  text-indigo-700">
       {navList.map((nav) => renderList(nav))}
     </ul>
   );

@@ -1,5 +1,5 @@
 import React from "react";
-import { GoogleLogin } from "@react-oauth/google";
+import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
 import Icon from "../components/Icon";
 import { faBoxOpen } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
@@ -7,12 +7,29 @@ import { useNavigate } from "react-router-dom";
 const LoginPage = () => {
   const navigate = useNavigate();
 
-  const handleSuccess = (response) => {
-    console.log("Login bem-sucedido:", response);
-    navigate("/home");
+  const handleSuccess = ({ credential, clientId }) => {
+    fetchUserInfo(clientId)
+      .then((userInfo) => {
+        console.log("User info:", userInfo);
+        // Armazene os dados do usuário e redirecione para a página inicial
+        navigate("/home", { state: { user: userInfo } });
+      })
+      .catch((error) => {
+        console.error("Erro ao obter informações do usuário:", error);
+        toast.error("Erro ao fazer login. Tente novamente.");
+      });
   };
 
-  const handleError = (error) => {
+  const fetchUserInfo = async (token) => {
+    const res = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return res.json();
+  };
+
+  const handleError = () => {
     toast.error("Erro ao fazer login. Tente novamente.");
   };
 
@@ -29,13 +46,16 @@ const LoginPage = () => {
 
         <GoogleLogin
           onSuccess={(credentialResponse) => {
+            console.log("login", credentialResponse);
             handleSuccess(credentialResponse);
           }}
-          onError={() => {
-            handleError(credentialResponse);
+          onError={(e) => {
+            console.log(e);
+            handleError();
           }}
           theme={"outline"}
           shape={"pill"}
+          scope={["profile", "email"]}
         />
       </div>
     </div>
