@@ -117,10 +117,12 @@ function HomePage() {
           </div>
         </header>
         <article className="flex-1 px-4 py-2">
-          <h2 className="text-center sm:text-lg">
-            Meus Arquivos {isFetchingFiles && <Spinner />}
-          </h2>
-          <FileList items={filteredFiles} onDelete={handleDeleteFile} />
+          <h2 className="text-center sm:text-lg">Meus Arquivos</h2>
+          {user ? (
+            <FileList items={filteredFiles} onDelete={handleDeleteFile} />
+          ) : (
+            <span className="text-center">Nenhum arquivo encontrado.</span>
+          )}
         </article>
         <footer className="flex flex-col items-center p-4">
           <h2 className="text-center m-4 sm:text-lg">Carregue um arquivo</h2>
