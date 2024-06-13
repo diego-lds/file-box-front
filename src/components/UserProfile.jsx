@@ -16,14 +16,14 @@ const UserProfile = ({ name, picture }) => {
 
   return (
     <div className="flex justify-center items-center outline">
-      <p className="block">{name}</p>
+      <p className="block text-sm">sss</p>
       <img
         src={picture}
         alt="Foto de perfil de usuário"
         className="inline rounded-full size-8"
       />
       <button onClick={handleLogout} className="rounded-sm border">
-        Sair
+        Sairfff
       </button>
     </div>
   );

@@ -2,11 +2,9 @@ import React, { useRef, useState } from "react";
 import {
   faTrashAlt,
   faCloudUploadAlt,
-  faSpinner,
 } from "@fortawesome/free-solid-svg-icons";
-import { formatBytes } from "../utils";
 import Icon from "./Icon";
-import { uploadFileService, fetchFilesService } from "../services/fileService";
+import Spinner from "./Spinner";
 
 const FileUploader = ({
   handleUploadFile,
@@ -14,9 +12,9 @@ const FileUploader = ({
   handleClearInput,
   handleSelectFile,
   className,
+  isUploading,
 }) => {
   const fileInputRef = useRef(null);
-  const [isUploading, setIsUploading] = useState(false);
 
   const clearInput = (e) => {
     handleClearInput();
@@ -27,7 +25,7 @@ const FileUploader = ({
     fileInputRef.current.click();
   };
   return (
-    <div className={`${className}`}>
+    <div className={`${className} cursor-pointer flex flex-col`}>
       <input
         type="file"
         multiple
@@ -35,34 +33,33 @@ const FileUploader = ({
         ref={fileInputRef}
         className="hidden"
       />
-      <div className="flex justify-evenly items-center">
+      <div className="flex justify-center gap-4 items-center ">
         <div onClick={handleClick} className="flex items-center cursor-pointer">
-          <Icon icon={faCloudUploadAlt} className="mr-2 text-4xl" />
-          <span className="text-lg">Selecionar arquivos</span>
+          <Icon
+            icon={faCloudUploadAlt}
+            className="mr-2 text-4xl text-primaryColor"
+          />
+          <span className="text-md">Selecionar arquivo</span>
         </div>
         <button
           onClick={handleUploadFile}
           disabled={selectedFile === null || isUploading}
-          className="px-4 py-2 cursor-pointer"
+          className="px-4 py-2 cursor-pointer border border-grey-700"
         >
-          {isUploading ? (
-            <Icon icon={faSpinner} className="animate-spin" />
-          ) : (
-            "Enviar"
-          )}
+          {isUploading ? <Spinner /> : "Enviar"}
         </button>
       </div>
       {selectedFile && (
-        <div className="relative mt-4 w-full text-center">
-          <div className="flex gap-2 justify-center items-center p-2 bg-gray-200 rounded-full">
-            <span className=""> arquivo: {selectedFile.name}</span>
-            <button
-              className="flex items-center hover:underline"
-              onClick={clearInput}
-            >
-              <Icon icon={faTrashAlt} className="mr-2" /> Remover arquivo
-            </button>
+        <div className="flex flex-col  w-full justify-center">
+          <div className="flex justify-center items-center p-1 m-2 bg-gray-200 rounded-full">
+            <span className="">Arquivo: {selectedFile.name}</span>
           </div>
+          <button
+            className="flex items-center justify-center hover:underline"
+            onClick={clearInput}
+          >
+            <Icon icon={faTrashAlt} className="mr-2" /> Remover arquivo
+          </button>
         </div>
       )}
     </div>

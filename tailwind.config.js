@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
@@ -11,6 +12,9 @@ export default {
         back: "#f0f4f9",
         coolBlue: "#3884F6",
         otherBlue: "#043C76",
+        primaryColor: "#4338ca",
+        secondaryColor: "",
+        terciaryColor: "#f0f4f9",
       },
     },
   },

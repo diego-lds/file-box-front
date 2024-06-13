@@ -26,7 +26,7 @@ const types = {
   rar: faFileArchive,
 };
 
-const List = ({ items = [], onDelete }) => {
+const List = ({ items, onDelete }) => {
   return (
     <ul className="w-full divide-y divide-gray-200 list-container">
       {items.length ? (
@@ -48,7 +48,7 @@ const ListItem = ({ item, onDelete }) => {
   };
 
   return (
-    <li className="flex justify-between items-center p-2 mx-4">
+    <li className="flex justify-between items-center p-2 mx-2">
       <div className="flex flex-1 items-center">
         <Icon icon={types[extension] || faFileAlt} className="mr-4" />
         <p className="flex-grow">{name}</p>

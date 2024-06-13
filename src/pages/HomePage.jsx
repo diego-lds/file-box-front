@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import {
   deleteFileService,
@@ -28,13 +28,13 @@ function HomePage() {
     (file) => filter === "" || file.type === filter
   );
 
-  const handleClearInput = () => {
+  const handleClearInput = useCallback(() => {
     setSelectedFile(null);
-  };
+  }, []);
 
-  const handleSelectFile = (file) => {
+  const handleSelectFile = useCallback((file) => {
     setSelectedFile(file);
-  };
+  }, []);
 
   const handleUploadFile = async () => {
     setIsUploading(true);
@@ -92,16 +92,16 @@ function HomePage() {
   }, []);
 
   return (
-    <div className="flex h-screen">
-      <aside className="p-4 flex-0">
+    <div className="flex flex-col h-screen lg:flex-row">
+      <aside className="flex-shrink-0 bg-zinc-200 p-4 w-full lg:w-auto">
         <Logo />
-        <FilterMenu />
+        <FilterMenu filter={filter} setFilter={setFilter} />
       </aside>
       <main className="flex flex-col flex-1">
-        <header className="flex px-4 py-2 w-full">
-          <SearchBar className="m-2 rounded-sm" />
-          <div className="flex gap-2 justify-around items-center">
-            <p className="">{user?.name}</p>
+        <header className="hidden items-center w-full lg:flex-row lg:flex">
+          <SearchBar className="m-2 w-full rounded-sm lg:w-auto" />
+          <div className="flex flex-col gap-2 justify-around items-center mt-2 lg:flex-row lg:mt-0">
+            <p className="sm:text-lg lg:text-sm">{user?.name}</p>
             <img
               src={user?.picture}
               alt="Foto de perfil de usuário"
@@ -116,26 +116,26 @@ function HomePage() {
             </button>
           </div>
         </header>
-        <article className="flex-1 items-center px-4 py-2">
-          <h2 className="text-center">
+        <article className="flex-1 px-4 py-2">
+          <h2 className="text-center sm:text-lg">
             Meus Arquivos {isFetchingFiles && <Spinner />}
           </h2>
-
           <FileList items={filteredFiles} onDelete={handleDeleteFile} />
         </article>
         <footer className="flex flex-col items-center p-4">
-          <h2 className="text-center">
-            Carregue seu arquivo {isUploading && <Spinner />}
-          </h2>
+          <h2 className="text-center m-4 sm:text-lg">Carregue um arquivo</h2>
+
           <FileUploader
-            className="flex justify-center p-4 w-1/2 rounded-sm border border-dashed"
+            className="flex justify-center p-4 w-full rounded-sm border border-dashed border-primaryColor lg:w-1/2"
             handleUploadFile={handleUploadFile}
             handleSelectFile={handleSelectFile}
             handleClearInput={handleClearInput}
             selectedFile={selectedFile}
+            isUploading={isUploading}
           />
         </footer>
       </main>
+      <ToastContainer />
     </div>
   );
 }
