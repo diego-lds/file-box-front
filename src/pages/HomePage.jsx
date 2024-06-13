@@ -73,42 +73,32 @@ function HomePage() {
     }
   };
 
-  const { name, picture } = JSON.parse(localStorage.getItem("user"));
+  const user = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
     handleFetchFiles();
   }, []);
 
   return (
-    <main className="flex bg-whiter">
-      <aside className="w-1/6 bg-zinc-200">
-        <div className="flex gap-2 justify-center items-center my-8">
-          <Icon icon={faBoxOpen} className="w-8 text-3xl" />
-          <h1 className="text-2xl">filebox</h1>
-        </div>
-        <div className="flex p-4">
-          <FilterMenu setFilter={setFilter} filter={filter} />
-        </div>
+    <main className="flex h-screen border border-red-500 bg-whiter">
+      <aside className="bg-zinc-200">
+        <Icon icon={faBoxOpen} className="" />
+        <h1>filebox</h1>
+        <FilterMenu />
       </aside>
 
-      <div className="container">
-        <Header className="flex justify-between items-center p-4">
-          <SearchBar />
-          {picture && <UserProfile name={name} picture={picture} />}
-        </Header>
-        <div className="flex flex-col items-center mt-10 w-full">
-          <div className="flex justify-center items-center my-4 text-center">
-            {isFetchingFiles && <Spinner />}
-            <h2>Meus Arquivos</h2>
-          </div>
+      <div className="container flex flex-col bg-pink-500">
+        <Header user={user} />
+        <div className="w-full bg-orange-400">
+          {isFetchingFiles && <Spinner />}
+          <h2>Meus Arquivos</h2>
           <FileList items={filteredFiles} onDelete={handleDeleteFile} />
         </div>
-        <div className="flex flex-col items-center my-16">
-          <div className="flex justify-center items-center mb-6">
-            {isUploading && <Spinner />}
-            <h2>Carregue seu arquivo</h2>
-          </div>
+
+        <h2>Carregue seu arquivo{isUploading && <Spinner />}</h2>
+        <div className="flex top-0 justify-center items-end bg-green-500">
           <FileUploader
+            className="p-8"
             handleUploadFile={handleUploadFile}
             handleSelectFile={handleSelectFile}
             handleClearInput={handleClearInput}
@@ -116,6 +106,7 @@ function HomePage() {
           />
         </div>
       </div>
+
       <ToastContainer />
     </main>
   );

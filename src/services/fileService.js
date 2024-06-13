@@ -1,11 +1,12 @@
 import axios from "axios";
-
+import fake from "../../fake";
 const BASE_URL = "http://localhost:3000";
 
 export const fetchFilesService = async () => {
   try {
-    const response = await axios.get(`${BASE_URL}/files`);
-    return response.data;
+    // const response = await axios.get(`${BASE_URL}/files`);
+    // return response.data;
+    return fake;
   } catch (error) {
     console.error("Erro ao buscar os arquivos:", error);
     throw error;

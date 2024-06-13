@@ -13,6 +13,7 @@ const FileUploader = ({
   selectedFile,
   handleClearInput,
   handleSelectFile,
+  className,
 }) => {
   const fileInputRef = useRef(null);
   const [isUploading, setIsUploading] = useState(false);
@@ -26,7 +27,9 @@ const FileUploader = ({
     fileInputRef.current.click();
   };
   return (
-    <div className="flex flex-col p-4 w-3/4 bg-white rounded-sm border border-dashed">
+    <div
+      className={`flex flex-col rounded-sm border border-dashed ${className} bg-gren-400`}
+    >
       <input
         type="file"
         multiple
