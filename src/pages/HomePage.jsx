@@ -24,9 +24,8 @@ function HomePage() {
   const [isFetchingFiles, setIsFetchingFiles] = useState(true);
   const navigate = useNavigate();
 
-  const filteredFiles = files.filter(
-    (file) => filter === "" || file.type === filter
-  );
+  const filteredFiles =
+    files && files.filter((file) => filter === "" || file.type === filter);
 
   const handleClearInput = useCallback(() => {
     setSelectedFile(null);
