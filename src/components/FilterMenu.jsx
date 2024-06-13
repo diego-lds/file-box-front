@@ -67,7 +67,7 @@ const FilterMenu = () => {
   };
 
   return (
-    <ul className="flex flex-col gap-1 w-full">
+    <ul className="flex flex-col mt-8 w-full">
       {navList.map((nav) => renderList(nav))}
     </ul>
   );

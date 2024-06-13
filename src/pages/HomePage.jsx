@@ -93,7 +93,7 @@ function HomePage() {
 
   return (
     <main className="flex h-screen bg-white">
-      <aside className="bg-yellow-500">
+      <aside className="p-2">
         <Logo />
         <FilterMenu />
       </aside>
