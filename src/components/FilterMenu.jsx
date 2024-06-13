@@ -7,6 +7,7 @@ import {
   faFileZipper,
   faFileAlt,
   faBoxArchive,
+  faImage,
 } from "@fortawesome/free-solid-svg-icons";
 
 import Icon from "./Icon";
@@ -16,6 +17,11 @@ const navList = [
     type: "",
     label: "Todos os arquivos",
     icon: faBoxArchive,
+  },
+  {
+    type: "image",
+    label: "Imagem",
+    icon: faImage,
   },
   {
     type: "audio",
