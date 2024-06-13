@@ -23,23 +23,3 @@ h2 {
   font-size: 1.2rem;
   color: black;
 }
-
-@keyframes pulse {
-  0%,
-  100% {
-    background-color: #4c51bf; /* bg-indigo-700 */
-    color: white;
-  }
-  50% {
-    color: black;
-    background-color: #ffffff; /* bg-white */
-  }
-}
-
-.btn-pulse {
-  @apply text-black  rounded-sm transition  ease-in-out;
-}
-
-.btn-pulse:hover {
-  animation: pulse 1s infinite;
-}

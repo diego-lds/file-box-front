@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   faMusic,
   faFileArchive,
@@ -11,34 +11,35 @@ import {
 
 import Icon from "./Icon";
 
-const Filter = ({ setFilter, filter }) => {
-  const navList = [
-    {
-      type: "",
-      label: "Todos os arquivos",
-      icon: faBoxArchive,
-    },
-    {
-      type: "audio",
-      label: "Áudio",
-      icon: faMusic,
-    },
-    {
-      type: "document",
-      label: "Documentos",
-      icon: faFileAlt,
-    },
-    {
-      type: "compressed",
-      label: "Comprimidos",
-      icon: faFileZipper,
-    },
-    {
-      type: "video",
-      label: "Vídeo",
-      icon: faVideo,
-    },
-  ];
+const navList = [
+  {
+    type: "",
+    label: "Todos os arquivos",
+    icon: faBoxArchive,
+  },
+  {
+    type: "audio",
+    label: "Áudio",
+    icon: faMusic,
+  },
+  {
+    type: "document",
+    label: "Documentos",
+    icon: faFileAlt,
+  },
+  {
+    type: "compressed",
+    label: "Comprimidos",
+    icon: faFileZipper,
+  },
+  {
+    type: "video",
+    label: "Vídeo",
+    icon: faVideo,
+  },
+];
+const FilterMenu = () => {
+  const [filter, setFilter] = useState("");
 
   const handleFilterChange = (filterType) => {
     setFilter(filterType);
@@ -72,4 +73,4 @@ const Filter = ({ setFilter, filter }) => {
   );
 };
 
-export default Filter;
+export default FilterMenu;

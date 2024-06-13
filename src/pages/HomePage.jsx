@@ -6,14 +6,12 @@ import {
   fetchFilesService,
   uploadFileService,
 } from "../services/fileService.js";
-import Filter from "../components/Filter.jsx";
+import FilterMenu from "../components/FilterMenu.jsx";
 import Header from "../components/Header.jsx";
 import SearchBar from "../components/SearchBar.jsx";
-import Photo from "../assets/react.svg";
 import UserProfile from "../components/UserProfile.jsx";
 import Icon from "../components/Icon";
-import List from "../components/List";
-import Sidebar from "../components/Sidebar";
+import FileList from "../components/FileList.jsx";
 import FileUploader from "../components/FileUploader.jsx";
 import { ToastContainer, toast } from "react-toastify";
 import Spinner from "../components/Spinner.jsx";
@@ -80,36 +78,30 @@ function HomePage() {
   useEffect(() => {
     handleFetchFiles();
   }, []);
-  console.log(name, picture);
+
   return (
     <main className="flex bg-whiter">
-      <aside className="w-1/6 bg-zinc-200 container ">
-        <Sidebar>
-          <div className="flex items-center justify-center gap-2 text-otherBlue my-8">
-            <Icon icon={faBoxOpen} className="text-3xl w-8" />
-            <h1 className="text-2xl">filebox</h1>
-          </div>
-          <div className="flex p-4">
-            <Filter setFilter={setFilter} filter={filter} />
-          </div>
-        </Sidebar>
+      <aside className="w-1/6 bg-zinc-200">
+        <div className="flex items-center justify-center gap-2 text-otherBlue my-8">
+          <Icon icon={faBoxOpen} className="text-3xl w-8" />
+          <h1 className="text-2xl">filebox</h1>
+        </div>
+        <div className="flex p-4">
+          <FilterMenu setFilter={setFilter} filter={filter} />
+        </div>
       </aside>
 
-      <div className="container mx-auto flex flex-col justify-between min-h-screen">
-        <div>
-          <Header className="flex items-center justify-between p-4">
-            <SearchBar />
-            {picture && <UserProfile name={name} picture={picture} />}
-          </Header>
-          <div className="flex flex-col items-center">
-            <div className="w-full mt-10">
-              <div className="text-center my-4 flex justify-center items-center">
-                {isFetchingFiles && <Spinner />}
-                <h2>Meus Arquivos</h2>
-              </div>
-              <List items={filteredFiles} onDelete={handleDeleteFile} />
-            </div>
+      <div className="container">
+        <Header className="flex items-center justify-between p-4">
+          <SearchBar />
+          {picture && <UserProfile name={name} picture={picture} />}
+        </Header>
+        <div className="flex flex-col items-center w-full mt-10">
+          <div className="text-center my-4 flex justify-center items-center">
+            {isFetchingFiles && <Spinner />}
+            <h2>Meus Arquivos</h2>
           </div>
+          <FileList items={filteredFiles} onDelete={handleDeleteFile} />
         </div>
         <div className="flex flex-col items-center my-16">
           <div className="mb-6 flex justify-center items-center">
