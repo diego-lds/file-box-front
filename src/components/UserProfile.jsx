@@ -15,19 +15,14 @@ const UserProfile = ({ name, picture }) => {
   };
 
   return (
-    <div className="flex justify-around items-center w-1/5">
-      <div className="ml-4">
-        <span>{name}</span>
-      </div>
+    <div className="flex justify-center items-center outline">
+      <p className="block">{name}</p>
       <img
         src={picture}
         alt="Foto de perfil de usuário"
-        className="rounded-full size-10"
+        className="inline rounded-full size-8"
       />
-      <button
-        onClick={handleLogout}
-        className="px-4 py-2 ml-4 rounded-sm border"
-      >
+      <button onClick={handleLogout} className="rounded-sm border">
         Sair
       </button>
     </div>

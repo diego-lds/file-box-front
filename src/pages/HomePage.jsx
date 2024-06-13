@@ -15,6 +15,7 @@ import FileList from "../components/FileList.jsx";
 import FileUploader from "../components/FileUploader.jsx";
 import { ToastContainer, toast } from "react-toastify";
 import Spinner from "../components/Spinner.jsx";
+import Logo from "../components/Logo.jsx";
 
 function HomePage() {
   const [files, setFiles] = useState([]);
@@ -80,32 +81,36 @@ function HomePage() {
   }, []);
 
   return (
-    <main className="flex h-screen border border-red-500 bg-whiter">
-      <aside className="bg-zinc-200">
-        <Icon icon={faBoxOpen} className="" />
-        <h1>filebox</h1>
-        <FilterMenu />
-      </aside>
+    <main className="flex h-screen bg-white">
+      <section className="outline">
+        <aside className="bg-yellow-500">
+          <Logo />
+          <FilterMenu />
+        </aside>
+      </section>
 
-      <div className="container flex flex-col bg-pink-500">
-        <Header user={user} />
-        <div className="w-full bg-orange-400">
-          {isFetchingFiles && <Spinner />}
-          <h2>Meus Arquivos</h2>
-          <FileList items={filteredFiles} onDelete={handleDeleteFile} />
-        </div>
+      <section className="container flex flex-col bg-pink-500">
+        <Header user={user} className={"bg-blue"} />
+        <div>
+          <h2>Meus Arquivos {isFetchingFiles && <Spinner />}</h2>
 
-        <h2>Carregue seu arquivo{isUploading && <Spinner />}</h2>
-        <div className="flex top-0 justify-center items-end bg-green-500">
-          <FileUploader
-            className="p-8"
-            handleUploadFile={handleUploadFile}
-            handleSelectFile={handleSelectFile}
-            handleClearInput={handleClearInput}
-            selectedFile={selectedFile}
-          />
+          <div className="w-full bg-orange-400">
+            <FileList items={filteredFiles} onDelete={handleDeleteFile} />
+          </div>
+
+          <footer>
+            <h2>Carregue seu arquivo{isUploading && <Spinner />}</h2>
+            <FileUploader
+              className="flex justify-center w-1/2 bg-green-500 rounded-sm border border-dashed"
+              handleUploadFile={handleUploadFile}
+              handleSelectFile={handleSelectFile}
+              handleClearInput={handleClearInput}
+              selectedFile={selectedFile}
+            />
+          </footer>
         </div>
-      </div>
+      </section>
+      <section></section>
 
       <ToastContainer />
     </main>
