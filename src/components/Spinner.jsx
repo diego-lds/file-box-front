@@ -4,10 +4,10 @@ import React from "react";
 
 const Spinner = () => {
   return (
-    <div className="ml-2 inline-block">
+    <div className="inline-block ml-2">
       <FontAwesomeIcon
         icon={faSpinner}
-        className="animate-spin text-otherBlue h-4 w-4"
+        className="w-4 h-4 animate-spin text-otherBlue"
       />
     </div>
   );

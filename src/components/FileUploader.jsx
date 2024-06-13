@@ -26,7 +26,7 @@ const FileUploader = ({
     fileInputRef.current.click();
   };
   return (
-    <div className="w-3/4 flex flex-col bg-white rounded-sm border p-4 border-dashed border-indigo-700 hover:bg-indigo-100">
+    <div className="flex flex-col p-4 w-3/4 bg-white rounded-sm border border-indigo-700 border-dashed hover:bg-indigo-100">
       <input
         type="file"
         multiple
@@ -35,20 +35,14 @@ const FileUploader = ({
         className="hidden"
       />
       <div className="flex justify-evenly items-center">
-        <div
-          onClick={handleClick}
-          className="cursor-pointer flex items-center "
-        >
-          <Icon
-            icon={faCloudUploadAlt}
-            className="text-4xl text-otherBlue mr-2"
-          />
+        <div onClick={handleClick} className="flex items-center cursor-pointer">
+          <Icon icon={faCloudUploadAlt} className="mr-2 text-4xl" />
           <span className="text-lg">Selecionar arquivos</span>
         </div>
         <button
           onClick={handleUploadFile}
           disabled={selectedFile === null || isUploading}
-          className="py-2 px-4 cursor-pointer text-white bg-indigo-700 disabled:bg-gray-300"
+          className="px-4 py-2 cursor-pointer"
         >
           {isUploading ? (
             <Icon icon={faSpinner} className="animate-spin" />
@@ -58,11 +52,11 @@ const FileUploader = ({
         </button>
       </div>
       {selectedFile && (
-        <div className="w-full mt-4 text-center relative">
-          <div className="flex justify-center items-center gap-2 p-2 bg-gray-200 rounded-full">
-            <span className="text-gray"> arquivo: {selectedFile.name}</span>
+        <div className="relative mt-4 w-full text-center">
+          <div className="flex gap-2 justify-center items-center p-2 bg-gray-200 rounded-full">
+            <span className=""> arquivo: {selectedFile.name}</span>
             <button
-              className="text-otherBlue hover:underline flex items-center"
+              className="flex items-center hover:underline"
               onClick={clearInput}
             >
               <Icon icon={faTrashAlt} className="mr-2" /> Remover arquivo

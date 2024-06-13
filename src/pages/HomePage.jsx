@@ -82,8 +82,8 @@ function HomePage() {
   return (
     <main className="flex bg-whiter">
       <aside className="w-1/6 bg-zinc-200">
-        <div className="flex items-center justify-center gap-2 text-otherBlue my-8">
-          <Icon icon={faBoxOpen} className="text-3xl w-8" />
+        <div className="flex gap-2 justify-center items-center my-8 text-otherBlue">
+          <Icon icon={faBoxOpen} className="w-8 text-3xl" />
           <h1 className="text-2xl">filebox</h1>
         </div>
         <div className="flex p-4">
@@ -92,19 +92,19 @@ function HomePage() {
       </aside>
 
       <div className="container">
-        <Header className="flex items-center justify-between p-4">
+        <Header className="flex justify-between items-center p-4">
           <SearchBar />
           {picture && <UserProfile name={name} picture={picture} />}
         </Header>
-        <div className="flex flex-col items-center w-full mt-10">
-          <div className="text-center my-4 flex justify-center items-center">
+        <div className="flex flex-col items-center mt-10 w-full">
+          <div className="flex justify-center items-center my-4 text-center">
             {isFetchingFiles && <Spinner />}
             <h2>Meus Arquivos</h2>
           </div>
           <FileList items={filteredFiles} onDelete={handleDeleteFile} />
         </div>
         <div className="flex flex-col items-center my-16">
-          <div className="mb-6 flex justify-center items-center">
+          <div className="flex justify-center items-center mb-6">
             {isUploading && <Spinner />}
             <h2>Carregue seu arquivo</h2>
           </div>

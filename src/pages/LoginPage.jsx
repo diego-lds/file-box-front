@@ -22,15 +22,15 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="login-page flex h-screen ">
-      <div className="left-side w-1/2 bg-coolBlue flex flex-col justify-center items-center gap-8">
+    <div className="flex h-screen login-page">
+      <div className="flex flex-col gap-8 justify-center items-center w-1/2 left-side bg-coolBlue">
         <div className="flex gap-4">
-          <h1 className="text-6xl text-white font-bold font-sans">filebox</h1>
+          <h1 className="font-sans text-6xl font-bold text-white">filebox</h1>
           <Icon className="text-7xl text-white" icon={faBoxOpen} />
         </div>
         <img src={Logo} className="size-1/2" />
       </div>
-      <div className="right-side w-1/2 flex flex-col justify-center items-center gap-8">
+      <div className="flex flex-col gap-8 justify-center items-center w-1/2 right-side">
         <h1 className="text-2xl text-otherBlue">
           Entre com sua conta do Google
         </h1>

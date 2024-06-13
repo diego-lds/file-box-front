@@ -28,7 +28,7 @@ const types = {
 
 const List = ({ items = [], onDelete }) => {
   return (
-    <ul className="divide-y divide-gray-200 w-full list-container">
+    <ul className="w-full divide-y divide-gray-200 list-container">
       {items.length ? (
         items.map((item, index) => (
           <ListItem key={index} item={item} onDelete={onDelete} />
@@ -48,21 +48,17 @@ const ListItem = ({ item, onDelete }) => {
   };
 
   return (
-    <li className="flex justify-between items-center p-2 mx-4 text-slate-900 hover:bg-gray-100">
-      <div className="flex items-center flex-1 text-slate-900">
+    <li className="flex justify-between items-center p-2 mx-4">
+      <div className="flex flex-1 items-center">
         <Icon icon={types[extension] || faFileAlt} className="mr-4" />
-        <p className="flex-grow ">{name}</p>
+        <p className="flex-grow">{name}</p>
         <small className="mx-4">{formatBytes(size)}</small>
       </div>
       <div>
         <a href={url} download className="mr-3">
           <Icon icon={faDownload} className="" />
         </a>
-        <button
-          alt="Apagar arquivo 🗑️???"
-          onClick={handleDelete}
-          className="hover:text-gray-700"
-        >
+        <button alt="Apagar arquivo 🗑️???" onClick={handleDelete} className="">
           <Icon icon={faTrashAlt} className="hover:text-red-500" />
         </button>
       </div>
