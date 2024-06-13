@@ -12,14 +12,6 @@ export default {
         coolBlue: "#3884F6",
         otherBlue: "#043C76",
       },
-      animation: {
-        "border-light": "borderLight 3s ease infinite",
-      },
-      boxShadow: {
-        "neumorphism-out": "8px 8px 16px #d1d9e6, -8px -8px 16px #ffffff",
-        "neumorphism-in":
-          "inset 8px 8px 16px #d1d9e6, inset -8px -8px 16px #ffffff",
-      },
     },
   },
 };

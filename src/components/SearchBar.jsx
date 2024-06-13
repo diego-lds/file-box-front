@@ -7,7 +7,7 @@ const SearchBar = () => {
         <input
           type="text"
           placeholder="Busca..."
-          className="py-2 pl-4 w-full rounded-sm border border-indigo-200 flex-0 focus:outline-none focus:border-indigo-500"
+          className="py-2 pl-4 w-full rounded-sm border flex-0 focus:outline-none"
         />
         <div className="flex absolute inset-y-0 right-0 items-center pr-3">
           <svg

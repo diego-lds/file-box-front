@@ -26,7 +26,7 @@ const UserProfile = ({ name, picture }) => {
       />
       <button
         onClick={handleLogout}
-        className="px-4 py-2 ml-4 rounded-sm border border-indigo-200 text-grey btn-pulse"
+        className="px-4 py-2 ml-4 rounded-sm border"
       >
         Sair
       </button>

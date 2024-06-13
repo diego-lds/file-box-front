@@ -26,7 +26,7 @@ const FileUploader = ({
     fileInputRef.current.click();
   };
   return (
-    <div className="flex flex-col p-4 w-3/4 bg-white rounded-sm border border-indigo-700 border-dashed hover:bg-indigo-100">
+    <div className="flex flex-col p-4 w-3/4 bg-white rounded-sm border border-dashed">
       <input
         type="file"
         multiple

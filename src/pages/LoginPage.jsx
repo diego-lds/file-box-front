@@ -25,15 +25,13 @@ const LoginPage = () => {
     <div className="flex h-screen login-page">
       <div className="flex flex-col gap-8 justify-center items-center w-1/2 left-side bg-coolBlue">
         <div className="flex gap-4">
-          <h1 className="font-sans text-6xl font-bold text-white">filebox</h1>
-          <Icon className="text-7xl text-white" icon={faBoxOpen} />
+          <h1 className="font-sans text-6xl font-bold">filebox</h1>
+          <Icon className="text-7xl" icon={faBoxOpen} />
         </div>
         <img src={Logo} className="size-1/2" />
       </div>
       <div className="flex flex-col gap-8 justify-center items-center w-1/2 right-side">
-        <h1 className="text-2xl text-otherBlue">
-          Entre com sua conta do Google
-        </h1>
+        <h1 className="text-2xl">Entre com sua conta do Google</h1>
 
         <GoogleLogin
           onSuccess={(credentialResponse) => {

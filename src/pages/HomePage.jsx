@@ -82,7 +82,7 @@ function HomePage() {
   return (
     <main className="flex bg-whiter">
       <aside className="w-1/6 bg-zinc-200">
-        <div className="flex gap-2 justify-center items-center my-8 text-otherBlue">
+        <div className="flex gap-2 justify-center items-center my-8">
           <Icon icon={faBoxOpen} className="w-8 text-3xl" />
           <h1 className="text-2xl">filebox</h1>
         </div>
