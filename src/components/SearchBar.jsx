@@ -1,11 +1,11 @@
 import React from "react";
 const SearchBar = ({ className }) => {
   return (
-    <div className={`relative flex-1 bg-blue`}>
+    <div className={`relative flex-1`}>
       <input
         type="text"
         placeholder="Busca..."
-        className="rounded-sm border size-full focus:outline-none"
+        className="p-2 m-2 rounded-sm border size-full focus:outline-none"
       />
       <div className="flex absolute inset-y-0 right-0 items-center pr-3">
         <Lens />
