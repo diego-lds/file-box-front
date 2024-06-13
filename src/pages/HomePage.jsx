@@ -92,51 +92,51 @@ function HomePage() {
   }, []);
 
   return (
-    <main className="flex h-screen bg-white">
-      <aside className="p-2">
+    <div className="flex h-screen">
+      <aside className="p-4 flex-0">
         <Logo />
         <FilterMenu />
       </aside>
-
-      <div className="flex flex-col flex-1 bg-pink-500">
-        <header className="flex gap-4 justify-around items-center w-full bg-orange-500 min-h-10">
-          <SearchBar className="flex-1" />
-          <p className="block">{user?.name}</p>
-          <img
-            src={user?.picture}
-            alt="Foto de perfil de usuário"
-            className="inline rounded-full size-8"
-            referrerPolicy="no-referrer"
-          />
-          <button
-            className="p-2 m-2 rounded-sm border border-1"
-            onClick={handleLogout}
-          >
-            Sair
-          </button>
-        </header>
-        <div>
-          <h2>Meus Arquivos {isFetchingFiles && <Spinner />}</h2>
-
-          <div className="w-full bg-orange-400">
-            <FileList items={filteredFiles} onDelete={handleDeleteFile} />
-          </div>
-
-          <footer>
-            <h2>Carregue seu arquivo {isUploading && <Spinner />}</h2>
-            <FileUploader
-              className="flex justify-center w-1/2 bg-green-500 rounded-sm border border-dashed"
-              handleUploadFile={handleUploadFile}
-              handleSelectFile={handleSelectFile}
-              handleClearInput={handleClearInput}
-              selectedFile={selectedFile}
+      <main className="flex flex-col flex-1">
+        <header className="flex px-4 py-2 w-full">
+          <SearchBar className="m-2 rounded-sm" />
+          <div className="flex gap-2 justify-around items-center">
+            <p className="">{user?.name}</p>
+            <img
+              src={user?.picture}
+              alt="Foto de perfil de usuário"
+              className="w-10 rounded-full"
+              referrerPolicy="no-referrer"
             />
-          </footer>
-        </div>
-      </div>
+            <button
+              className="px-4 py-2 rounded-sm border"
+              onClick={handleLogout}
+            >
+              Sair
+            </button>
+          </div>
+        </header>
+        <article className="flex-1 items-center px-4 py-2">
+          <h2 className="text-center">
+            Meus Arquivos {isFetchingFiles && <Spinner />}
+          </h2>
 
-      <ToastContainer />
-    </main>
+          <FileList items={filteredFiles} onDelete={handleDeleteFile} />
+        </article>
+        <footer className="flex flex-col items-center p-4">
+          <h2 className="text-center">
+            Carregue seu arquivo {isUploading && <Spinner />}
+          </h2>
+          <FileUploader
+            className="flex justify-center p-4 w-1/2 rounded-sm border border-dashed"
+            handleUploadFile={handleUploadFile}
+            handleSelectFile={handleSelectFile}
+            handleClearInput={handleClearInput}
+            selectedFile={selectedFile}
+          />
+        </footer>
+      </main>
+    </div>
   );
 }
 
