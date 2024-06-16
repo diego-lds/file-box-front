@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "react-toastify/dist/ReactToastify.css";
 import Icon from "./Icon";
 import { faBoxOpen } from "@fortawesome/free-solid-svg-icons";

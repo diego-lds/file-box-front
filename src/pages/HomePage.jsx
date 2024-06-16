@@ -10,7 +10,6 @@ import SearchBar from "../components/SearchBar.jsx";
 import FileList from "../components/FileList.jsx";
 import FileUploader from "../components/FileUploader.jsx";
 import { ToastContainer, toast } from "react-toastify";
-import Spinner from "../components/Spinner.jsx";
 import Logo from "../components/Logo.jsx";
 import { googleLogout } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";

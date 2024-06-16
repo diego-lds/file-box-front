@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { GoogleLogin } from "@react-oauth/google";
 import Icon from "../components/Icon";
 import { faBoxOpen } from "@fortawesome/free-solid-svg-icons";
@@ -9,6 +9,14 @@ import { toast } from "react-toastify"; // Importando toast para usar no handleE
 
 const LoginPage = () => {
   const navigate = useNavigate();
+
+  // Verifica se o usuário já está logado
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    if (user) {
+      navigate("/home");
+    }
+  }, [navigate]);
 
   const handleSuccess = (credentialResponse) => {
     const token = credentialResponse.credential;
@@ -24,7 +32,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="flex  h-screen">
+    <div className="flex h-screen">
       <div className="flex flex-col flex-grow gap-8 justify-center items-center bg-coolBlue">
         <div className="flex items-center gap-4 text-white">
           <h1 className="font-sans text-6xl font-bold">filebox</h1>
