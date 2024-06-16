@@ -16,12 +16,14 @@ const SearchBar = ({ className }) => {
         id="searchInput"
         type="text"
         placeholder="Busca..."
-        className="p-3 rounded-sm border size-full focus:outline-none"
+        className="p-3 rounded-sm border size-full focus:outline-none box-border"
         ref={inputRef}
+        style={{ width: "100%", height: "100%" }} // Garantir que o input preencha o espaço disponível
       />
       <div
         className="flex absolute inset-y-0 top-0 right-0 items-center pr-3 cursor-pointer"
         onClick={handleIconClick}
+        style={{ width: "24px", height: "24px" }} // Reservar espaço para o ícone
       >
         <Lens />
       </div>
@@ -30,7 +32,14 @@ const SearchBar = ({ className }) => {
 };
 
 const Lens = () => (
-  <svg className="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <svg
+    className="size-5"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+    width="24"
+    height="24"
+  >
     <path
       strokeLinecap="round"
       strokeLinejoin="round"

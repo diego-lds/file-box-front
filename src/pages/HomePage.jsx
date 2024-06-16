@@ -90,8 +90,8 @@ function HomePage() {
   }, []);
 
   return (
-    <div className="flex flex-col h-screen lg:flex-row">
-      <aside className="flex-shrink-0 bg-zinc-200 p-4 w-full lg:w-auto">
+    <div className="flex flex-col h-screen w-screen lg:flex-row">
+      <aside className="flex-shrink-0 bg-zinc-200 p-4   lg:w-auto">
         <Logo />
         <FilterMenu filter={filter} setFilter={setFilter} />
       </aside>
@@ -103,8 +103,9 @@ function HomePage() {
             <img
               src={user?.picture}
               alt={`Foto de perfil de ${user?.name}`}
-              className="w-10 rounded-full"
+              className="w-10 h-10 rounded-full"
               referrerPolicy="no-referrer"
+              style={{ minWidth: "2.5rem", minHeight: "2.5rem" }}
             />
             <button
               className="px-4 py-2 rounded-sm border"
