@@ -1,13 +1,5 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-const Icon = ({ icon, className, ...rest }) => {
-  return (
-    <FontAwesomeIcon
-      icon={icon}
-      className={className + " aspect-square"}
-      {...rest}
-    />
-  );
+const Icon = ({ src, ...rest }) => {
+  return <img src={src} {...rest} />;
 };
 
 export default Icon;

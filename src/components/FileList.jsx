@@ -1,29 +1,19 @@
 import React from "react";
-import {
-  faFileAlt,
-  faTrashAlt,
-  faDownload,
-  faMusic,
-  faFilePdf,
-  faFileImage,
-  faFileVideo,
-  faFileArchive,
-  faFileWord,
-} from "@fortawesome/free-solid-svg-icons";
+
 import { formatBytes } from "../utils";
 import Icon from "./Icon";
 
 const types = {
-  txt: faFileAlt,
-  doc: faFileWord,
-  docx: faFileWord,
-  pdf: faFilePdf,
-  png: faFileImage,
-  jpg: faFileImage,
-  mp3: faMusic,
-  mp4: faFileVideo,
-  zip: faFileArchive,
-  rar: faFileArchive,
+  txt: <Icon src="/document.svg" />,
+  doc: <Icon src="/document.svg" />,
+  docx: <Icon src="/document.svg" />,
+  pdf: <Icon src="/document.svg" />,
+  png: <Icon src="/image.svg" />,
+  jpg: <Icon src="/image.svg" />,
+  mp3: <Icon src="/music.svg" />,
+  mp4: <Icon src="/video.svg" />,
+  zip: <Icon src="/compressed.svg" />,
+  rar: <Icon src="/compressed.svg" />,
 };
 
 const List = ({ items, onDelete }) => {
@@ -31,7 +21,12 @@ const List = ({ items, onDelete }) => {
     <ul className="w-full divide-y divide-gray-200 list-container">
       {items.length ? (
         items.map((item, index) => (
-          <ListItem key={index} item={item} onDelete={onDelete} />
+          <ListItem
+            key={index}
+            item={item}
+            onDelete={onDelete}
+            icon={types[item.extension]}
+          />
         ))
       ) : (
         <Empty />
@@ -40,7 +35,7 @@ const List = ({ items, onDelete }) => {
   );
 };
 
-const ListItem = ({ item, onDelete }) => {
+const ListItem = ({ item, onDelete, icon }) => {
   const { name, extension, size, url } = item;
 
   const handleDelete = () => {
@@ -48,31 +43,23 @@ const ListItem = ({ item, onDelete }) => {
   };
 
   return (
-    <li className="flex justify-between items-center p-2 mx-2">
-      <div className="flex flex-1 items-center">
-        <Icon icon={types[extension] || faFileAlt} className="mr-4" />
-        <p className="flex-grow">{name}</p>
+    <li className="flex justify-between items-center p-2 mx-2 ">
+      <div className="flex flex-1 items-center ">
+        {icon}
+        <p className="flex-grow pl-2">{name}</p>
         <small className="mx-4">{formatBytes(size)}</small>
       </div>
-      <div>
+      <div className="flex">
         <a href={url} download className="mr-3" title={`Baixar ${name}`}>
-          <Icon
-            icon={faDownload}
-            className=""
-            alt={`Ícone de download para ${name}`}
-          />
+          <Icon src="download.svg" alt={`Ícone de download para ${name}`} />
         </a>
         <button
-          onClick={handleDelete}
           className=""
           title={`Apagar arquivo ${name}`}
           aria-label={`Apagar arquivo ${name}`}
+          onClick={handleDelete}
         >
-          <Icon
-            icon={faTrashAlt}
-            className="hover:text-red-500"
-            alt={`Ícone de lixeira para ${name}`}
-          />
+          <Icon src="trash.svg" />
         </button>
       </div>
     </li>

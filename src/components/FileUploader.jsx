@@ -1,10 +1,7 @@
 import React, { useRef } from "react";
-import {
-  faTrashAlt,
-  faCloudUploadAlt,
-} from "@fortawesome/free-solid-svg-icons";
-import Icon from "./Icon";
+
 import Spinner from "./Spinner";
+import Icon from "./Icon";
 
 const FileUploader = ({
   handleUploadFile,
@@ -42,10 +39,7 @@ const FileUploader = ({
           role="button"
           tabIndex="0"
         >
-          <Icon
-            icon={faCloudUploadAlt}
-            className="mr-2 text-4xl text-primaryColor"
-          />
+          <Icon src="cloud.svg" className="mr-2 text-4xl text-primaryColor" />
           <span className="text-md">Selecionar arquivo</span>
         </div>
         <button
