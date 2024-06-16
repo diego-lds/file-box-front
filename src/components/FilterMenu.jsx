@@ -42,6 +42,7 @@ const navList = [
     icon: faVideo,
   },
 ];
+
 const FilterMenu = ({ filter, setFilter }) => {
   const handleFilterChange = (filterType) => {
     setFilter(filterType);
@@ -57,21 +58,22 @@ const FilterMenu = ({ filter, setFilter }) => {
         <a
           href="#"
           onClick={() => handleFilterChange(nav.type)}
-          className={`flex text-indigo-700 items-center gap-4 py-1 px-4  hover:bg-indigo-50  ${isActive(
+          className={`flex text-indigo-700 items-center gap-4 py-1 px-4 hover:bg-indigo-50 ${isActive(
             nav.type
           )}`}
+          aria-current={filter === nav.type ? "page" : undefined}
         >
-          <Icon icon={nav.icon} className={""} />
-          <p className="hidden lg:block">{nav.label}</p>
+          <Icon icon={nav.icon} className="" aria-hidden="true" />
+          <span className="hidden lg:block">{nav.label}</span>
         </a>
       </li>
     );
   };
 
   return (
-    <ul className="flex mt-16 w-full justify-center gap-4 text-5xl  lg:flex-col  lg:text-sm lg:gap-1">
+    <nav className="flex mt-16 w-full justify-center gap-4 text-5xl lg:flex-col lg:text-sm lg:gap-1">
       {navList.map((nav) => renderList(nav))}
-    </ul>
+    </nav>
   );
 };
 

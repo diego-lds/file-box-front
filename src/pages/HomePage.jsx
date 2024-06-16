@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import {
   deleteFileService,
@@ -102,7 +102,7 @@ function HomePage() {
             <p className="sm:text-lg lg:text-sm">{user?.name}</p>
             <img
               src={user?.picture}
-              alt="Foto de perfil de usuário"
+              alt={`Foto de perfil de ${user?.name}`}
               className="w-10 rounded-full"
               referrerPolicy="no-referrer"
             />

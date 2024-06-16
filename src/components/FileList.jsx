@@ -55,11 +55,24 @@ const ListItem = ({ item, onDelete }) => {
         <small className="mx-4">{formatBytes(size)}</small>
       </div>
       <div>
-        <a href={url} download className="mr-3">
-          <Icon icon={faDownload} className="" />
+        <a href={url} download className="mr-3" title={`Baixar ${name}`}>
+          <Icon
+            icon={faDownload}
+            className=""
+            alt={`Ícone de download para ${name}`}
+          />
         </a>
-        <button alt="Apagar arquivo 🗑️???" onClick={handleDelete} className="">
-          <Icon icon={faTrashAlt} className="hover:text-red-500" />
+        <button
+          onClick={handleDelete}
+          className=""
+          title={`Apagar arquivo ${name}`}
+          aria-label={`Apagar arquivo ${name}`}
+        >
+          <Icon
+            icon={faTrashAlt}
+            className="hover:text-red-500"
+            alt={`Ícone de lixeira para ${name}`}
+          />
         </button>
       </div>
     </li>

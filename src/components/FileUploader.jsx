@@ -16,7 +16,7 @@ const FileUploader = ({
 }) => {
   const fileInputRef = useRef(null);
 
-  const clearInput = (e) => {
+  const clearInput = () => {
     handleClearInput();
     fileInputRef.current.value = null;
   };
@@ -24,6 +24,7 @@ const FileUploader = ({
   const handleClick = () => {
     fileInputRef.current.click();
   };
+
   return (
     <div className={`${className} cursor-pointer flex flex-col`}>
       <input
@@ -32,9 +33,15 @@ const FileUploader = ({
         onChange={(e) => handleSelectFile(e.target.files[0])}
         ref={fileInputRef}
         className="hidden"
+        aria-label="Selecione um arquivo"
       />
-      <div className="flex justify-center gap-4 items-center ">
-        <div onClick={handleClick} className="flex items-center cursor-pointer">
+      <div className="flex justify-center gap-4 items-center">
+        <div
+          onClick={handleClick}
+          className="flex items-center cursor-pointer"
+          role="button"
+          tabIndex="0"
+        >
           <Icon
             icon={faCloudUploadAlt}
             className="mr-2 text-4xl text-primaryColor"
@@ -50,15 +57,17 @@ const FileUploader = ({
         </button>
       </div>
       {selectedFile && (
-        <div className="flex flex-col  w-full justify-center">
+        <div className="flex flex-col w-full justify-center mt-4">
           <div className="flex justify-center items-center p-1 m-2 bg-gray-200 rounded-full">
-            <span className="">Arquivo: {selectedFile.name}</span>
+            <span className="">{selectedFile.name}</span>
           </div>
           <button
             className="flex items-center justify-center hover:underline"
             onClick={clearInput}
+            tabIndex="0"
           >
-            <Icon icon={faTrashAlt} className="mr-2" /> Remover arquivo
+            <Icon icon={faTrashAlt} className="mr-2" />
+            <span>Remover arquivo</span>
           </button>
         </div>
       )}

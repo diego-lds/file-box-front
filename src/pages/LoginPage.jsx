@@ -5,26 +5,40 @@ import { faBoxOpen } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import Logo from "../assets/logo.svg";
-import { toast } from "react-toastify"; // Importando toast para usar no handleError
+import { toast } from "react-toastify";
+import localforage from "localforage";
 
 const LoginPage = () => {
   const navigate = useNavigate();
 
-  // Verifica se o usuário já está logado
   useEffect(() => {
-    const user = localStorage.getItem("user");
-    if (user) {
-      navigate("/home");
+    checkLoggedIn();
+  }, []);
+
+  const checkLoggedIn = async () => {
+    try {
+      const user = await localforage.getItem("user");
+      if (user) {
+        navigate("/home");
+      }
+    } catch (error) {
+      console.error("Erro ao verificar o usuário logado:", error);
     }
-  }, [navigate]);
+  };
 
   const handleSuccess = (credentialResponse) => {
     const token = credentialResponse.credential;
     const decoded = jwtDecode(token);
 
-    localStorage.setItem("user", JSON.stringify(decoded));
-
-    navigate("/home");
+    localforage
+      .setItem("user", decoded)
+      .then(() => {
+        navigate("/home");
+      })
+      .catch((error) => {
+        console.error("Erro ao salvar o usuário:", error);
+        toast.error("Erro ao fazer login. Tente novamente.");
+      });
   };
 
   const handleError = () => {
