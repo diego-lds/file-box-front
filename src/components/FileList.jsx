@@ -17,20 +17,37 @@ const types = {
 };
 
 const List = ({ items, onDelete }) => {
+  if (!items.length) return;
+
   return (
     <ul className="w-full divide-y divide-gray-200 list-container">
-      {items.length ? (
-        items.map((item, index) => (
-          <ListItem
-            key={index}
-            item={item}
-            onDelete={onDelete}
-            icon={types[item.extension]}
-          />
-        ))
-      ) : (
-        <Empty />
-      )}
+      {items.map((item, index) => (
+        <li key={index} className="flex justify-between p-2 mx-2 ">
+          <div className="flex flex-1 items-center ">
+            {types[item.extension]}
+            <p className="flex-grow pl-2">{item.name}</p>
+            <small className="mx-4">{formatBytes(item.size)}</small>
+          </div>
+          <div className="flex items-center">
+            <a
+              href={item.url}
+              download
+              className="mr-3"
+              title={`Baixar ${item.name}`}
+            >
+              <Icon name="download" />
+            </a>
+            <button
+              className=""
+              title={`Apagar arquivo ${item.name}`}
+              aria-label={`Apagar arquivo ${item.name}`}
+              onClick={() => onDelete(item)}
+            >
+              <Icon name="trash" />
+            </button>
+          </div>
+        </li>
+      ))}
     </ul>
   );
 };

@@ -13,6 +13,8 @@ import { ToastContainer, toast } from "react-toastify";
 import Logo from "../components/Logo.jsx";
 import { googleLogout } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
+import LayoutGrid from "../components/LayoutGrid.jsx";
+import UserProfile from "../components/UserProfile.jsx";
 
 function HomePage() {
   const [user, setUser] = useState(null);
@@ -89,55 +91,54 @@ function HomePage() {
     handleFetchFiles();
   }, []);
 
-  return (
-    <div className="flex flex-col h-screen w-screen lg:flex-row">
-      <aside className="flex-shrink-0 bg-zinc-200 p-4   lg:w-auto">
-        <Logo />
-        <FilterMenu filter={filter} setFilter={setFilter} />
-      </aside>
-      <main className="flex flex-col flex-1">
-        <header className="hidden items-center w-full lg:flex-row lg:flex">
-          <SearchBar className="m-2 w-full rounded-sm lg:w-auto" />
-          <div className="flex flex-col gap-2 justify-around items-center mt-2 lg:flex-row lg:mt-0">
-            <p className="sm:text-lg lg:text-sm">{user?.name}</p>
-            <img
-              src={user?.picture}
-              alt={`Foto de perfil de ${user?.name}`}
-              className="w-10 h-10 rounded-full"
-              referrerPolicy="no-referrer"
-              style={{ minWidth: "2.5rem", minHeight: "2.5rem" }}
-            />
-            <button
-              className="px-4 py-2 rounded-sm border"
-              onClick={handleLogout}
-            >
-              Sair
-            </button>
-          </div>
-        </header>
-        <article className="flex-1 px-4 py-2">
-          <h2 className="text-center sm:text-lg">Meus Arquivos</h2>
-          {user ? (
-            <FileList items={filteredFiles} onDelete={handleDeleteFile} />
-          ) : (
-            <span className="text-center">Nenhum arquivo encontrado.</span>
-          )}
-        </article>
-        <footer className="flex flex-col items-center p-4">
-          <h2 className="text-center m-4 sm:text-lg">Carregue um arquivo</h2>
+  const Header = () => (
+    <>
+      <Logo />
+      <SearchBar className=" w-full rounded-sm " />
+      {user && <UserProfile {...user} />}
+      <button
+        className=" h-full w-24   rounded-sm border  border-slate-300"
+        onClick={handleLogout}
+      >
+        Sair
+      </button>
+    </>
+  );
+  const Aside = () => (
+    <>
+      <FilterMenu filter={filter} setFilter={setFilter} />
+    </>
+  );
+  const Footer = () => (
+    <>
+      <h2 className="text-center m-4 sm:text-lg">Carregue um arquivo</h2>
+      <FileUploader
+        className="  outline  rounded-sm border border-dashed border-primaryColor"
+        handleUploadFile={handleUploadFile}
+        handleSelectFile={handleSelectFile}
+        handleClearInput={handleClearInput}
+        selectedFile={selectedFile}
+        isUploading={isUploading}
+      />
+    </>
+  );
+  const Main = () => (
+    <>
+      <h2 className="text-center sm:text-lg">Meus Arquivos</h2>
+      <FileList items={filteredFiles} onDelete={handleDeleteFile} />
+    </>
+  );
 
-          <FileUploader
-            className="flex justify-center p-4 w-full rounded-sm border border-dashed border-primaryColor lg:w-1/2"
-            handleUploadFile={handleUploadFile}
-            handleSelectFile={handleSelectFile}
-            handleClearInput={handleClearInput}
-            selectedFile={selectedFile}
-            isUploading={isUploading}
-          />
-        </footer>
-      </main>
+  return (
+    <>
+      <LayoutGrid
+        header={<Header />}
+        aside={<Aside />}
+        main={<Main />}
+        footer={<Footer />}
+      />
       <ToastContainer />
-    </div>
+    </>
   );
 }
 

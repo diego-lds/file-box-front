@@ -4,6 +4,12 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      gridTemplateRows: {
+        layout: "auto 1fr auto", // Header, main + aside, footer
+      },
+      gridTemplateColumns: {
+        layout: "1fr 3fr", // Aside, main
+      },
       colors: {
         violet: "#6876c0",
         blue: "#27b3dc",
