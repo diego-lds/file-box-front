@@ -4,16 +4,16 @@ import { formatBytes } from "../utils";
 import Icon from "./Icon";
 
 const types = {
-  txt: <Icon src="/document.svg" />,
-  doc: <Icon src="/document.svg" />,
-  docx: <Icon src="/document.svg" />,
-  pdf: <Icon src="/document.svg" />,
-  png: <Icon src="/image.svg" />,
-  jpg: <Icon src="/image.svg" />,
-  mp3: <Icon src="/music.svg" />,
-  mp4: <Icon src="/video.svg" />,
-  zip: <Icon src="/compressed.svg" />,
-  rar: <Icon src="/compressed.svg" />,
+  txt: <Icon name="document" />,
+  doc: <Icon name="document" />,
+  docx: <Icon name="document" />,
+  pdf: <Icon name="document" />,
+  png: <Icon name="image" />,
+  jpg: <Icon name="image" />,
+  mp3: <Icon name="music" />,
+  mp4: <Icon name="video" />,
+  zip: <Icon name="compressed" />,
+  rar: <Icon name="compressed" />,
 };
 
 const List = ({ items, onDelete }) => {
@@ -51,7 +51,7 @@ const ListItem = ({ item, onDelete, icon }) => {
       </div>
       <div className="flex">
         <a href={url} download className="mr-3" title={`Baixar ${name}`}>
-          <Icon src="download.svg" alt={`Ícone de download para ${name}`} />
+          <Icon name="download" />
         </a>
         <button
           className=""
@@ -59,13 +59,17 @@ const ListItem = ({ item, onDelete, icon }) => {
           aria-label={`Apagar arquivo ${name}`}
           onClick={handleDelete}
         >
-          <Icon src="trash.svg" />
+          <Icon name="trash" />
         </button>
       </div>
     </li>
   );
 };
 
-const Empty = () => <li className="text-center">Nenhum arquivo encontrado.</li>;
+const Empty = () => (
+  <li className="text-center p-2 mx-2 ">
+    <p>Nenhum item encontrado.</p>
+  </li>
+);
 
 export default List;

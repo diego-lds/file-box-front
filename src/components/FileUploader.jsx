@@ -39,7 +39,7 @@ const FileUploader = ({
           role="button"
           tabIndex="0"
         >
-          <Icon src="cloud.svg" className="mr-2 text-4xl text-primaryColor" />
+          <Icon name="upload" />
           <span className="text-md">Selecionar arquivo</span>
         </div>
         <button

@@ -1,18 +1,45 @@
+// Icon.js
 import React from "react";
-import PropTypes from "prop-types";
-import { FiPlus, FiMinus, FiSearch, FiUser } from "react-icons/fi";
+import {
+  FaBoxOpen,
+  FaBox,
+  FaFile,
+  FaFileAlt,
+  FaFileArchive,
+  FaMusic,
+  FaVideo,
+  FaImage,
+  FaDownload,
+  FaUpload,
+  FaTrash,
+  FaCloudUploadAlt,
+} from "react-icons/fa";
 
-const IconComponent = ({ icon, color }) => {
-  let Icon = FiPlus; // Ícone padrão, caso nenhum seja passado
-
-  const iconMap = {
-    plus: FiPlus,
-    minus: FiMinus,
-    search: FiSearch,
-    user: FiUser,
-  };
-
-  return <span>{icon}</span>;
+const Icons = {
+  box: FaBoxOpen,
+  inventory: FaBox,
+  document: FaFileAlt,
+  audio: FaMusic,
+  video: FaVideo,
+  compressed: FaFileArchive,
+  image: FaImage,
+  download: FaDownload,
+  trash: FaTrash,
+  other: FaFile,
+  download: FaDownload,
+  upload: FaCloudUploadAlt,
 };
 
-export default IconComponent;
+const Icon = ({
+  name = "other",
+  color = "#4338ca",
+  size = "16px",
+  ...props
+}) => {
+  const IconComponent = Icons[name];
+  return IconComponent ? (
+    <IconComponent color={color} size={size} {...props} />
+  ) : null;
+};
+
+export default Icon;

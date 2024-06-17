@@ -1,38 +1,42 @@
 import React from "react";
-import { FiPlus, FiMinus, FiSearch, FiUser, FiBox } from "react-icons/fi";
-
-import IconComponent from "./Icon";
+import { FaBoxOpen } from "react-icons/fa";
+import Icon from "../components/Icon";
 import Divider from "./Divider";
 const navList = [
   {
     type: "",
     label: "Todos os arquivos",
-    icon: <FiBox color="red" />,
-  },
-  {
-    type: "image",
-    label: "Imagem",
-    icon: <IconComponent icon={FiPlus} />,
-  },
-  {
-    type: "audio",
-    label: "Áudio",
-    icon: <IconComponent icon={FiPlus} />,
+    icon: <Icon name="inventory" />,
   },
   {
     type: "document",
     label: "Documentos",
-    icon: <IconComponent icon={FiPlus} />,
+    icon: <Icon name="document" />,
+  },
+  {
+    type: "audio",
+    label: "Áudio",
+    icon: <Icon name="audio" />,
+  },
+  {
+    type: "image",
+    label: "Fotos",
+    icon: <Icon name="image" />,
   },
   {
     type: "compressed",
     label: "Comprimidos",
-    icon: <IconComponent icon={FiPlus} />,
+    icon: <Icon name="compressed" />,
   },
   {
     type: "video",
-    label: "Vídeo",
-    icon: <IconComponent icon={FiPlus} />,
+    label: "Vídeos",
+    icon: <Icon name="video" />,
+  },
+  {
+    type: "other",
+    label: "Outros",
+    icon: <Icon name="other" />,
   },
 ];
 
