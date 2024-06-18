@@ -50,19 +50,17 @@ const FilterMenu = ({ filter, setFilter }) => {
   };
 
   return (
-    <nav className="flex mt-16 w-full justify-center gap-4 text-5xl lg:flex-col lg:text-sm lg:gap-1">
+    <nav className={" "}>
       {navList.map((nav) => (
         <li key={nav.type}>
           <a
             href="#"
             onClick={() => handleFilterChange(nav.type)}
-            className={`flex text-grey items-center gap-4 py-1 px-4 rounded-sm hover:bg-indigo-50 ${isActive(
-              nav.type
-            )}`}
+            className={" "}
             aria-current={filter === nav.type ? "page" : undefined}
           >
             {nav.icon}
-            <span className="hidden lg:block">{nav.label}</span>
+            <span className={" "}>{nav.label}</span>
           </a>
           <Divider />
         </li>

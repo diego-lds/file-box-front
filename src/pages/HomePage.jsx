@@ -94,12 +94,9 @@ function HomePage() {
   const Header = () => (
     <>
       <Logo />
-      <SearchBar className=" w-full rounded-sm " />
+      <SearchBar className={" "} />
       {user && <UserProfile {...user} />}
-      <button
-        className=" h-full w-24   rounded-sm border  border-slate-300"
-        onClick={handleLogout}
-      >
+      <button className={" "} onClick={handleLogout}>
         Sair
       </button>
     </>
@@ -111,9 +108,9 @@ function HomePage() {
   );
   const Footer = () => (
     <>
-      <h2 className="text-center m-4 sm:text-lg">Carregue um arquivo</h2>
+      <h2 className={" "}>Carregue um arquivo</h2>
       <FileUploader
-        className="  outline  rounded-sm border border-dashed border-primaryColor"
+        className={" "}
         handleUploadFile={handleUploadFile}
         handleSelectFile={handleSelectFile}
         handleClearInput={handleClearInput}
@@ -124,7 +121,7 @@ function HomePage() {
   );
   const Main = () => (
     <>
-      <h2 className="text-center sm:text-lg">Meus Arquivos</h2>
+      <h2 className={" "}>Meus Arquivos</h2>
       <FileList items={filteredFiles} onDelete={handleDeleteFile} />
     </>
   );

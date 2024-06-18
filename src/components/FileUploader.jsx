@@ -23,44 +23,35 @@ const FileUploader = ({
   };
 
   return (
-    <div className={`${className} cursor-pointer flex flex-col`}>
+    <div className={" "}>
       <input
         type="file"
         multiple
         onChange={(e) => handleSelectFile(e.target.files[0])}
         ref={fileInputRef}
-        className="hidden"
+        className={" "}
         aria-label="Selecione um arquivo"
       />
-      <div className="flex justify-center gap-4 items-center">
-        <div
-          onClick={handleClick}
-          className="flex items-center cursor-pointer"
-          role="button"
-          tabIndex="0"
-        >
+      <div className={" "}>
+        <div onClick={handleClick} className={" "} role="button" tabIndex="0">
           <Icon name="upload" />
-          <span className="text-md">Selecionar arquivo</span>
+          <span className={" "}>Selecionar arquivo</span>
         </div>
         <button
           onClick={handleUploadFile}
           disabled={selectedFile === null || isUploading}
-          className="px-4 py-2 cursor-pointer border border-grey-700"
+          className={" "}
         >
           {isUploading ? <Spinner /> : "Enviar"}
         </button>
       </div>
       {selectedFile && (
-        <div className="flex flex-col w-full justify-center mt-4">
-          <div className="flex justify-center items-center p-1 m-2 bg-gray-200 rounded-full">
-            <span className="">{selectedFile.name}</span>
+        <div className={" "}>
+          <div className={" "}>
+            <span className={" "}>{selectedFile.name}</span>
           </div>
-          <button
-            className="flex items-center justify-center hover:underline"
-            onClick={clearInput}
-            tabIndex="0"
-          >
-            <Icon icon={faTrashAlt} className="mr-2" />
+          <button className={" "} onClick={clearInput} tabIndex="0">
+            <Icon icon={faTrashAlt} className={" "} />
             <span>Remover arquivo</span>
           </button>
         </div>

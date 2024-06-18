@@ -1,11 +1,6 @@
 const Spinner = ({ ...rest }) => {
   return (
-    <img
-      src="/spinner.svg"
-      alt="Loading spinner"
-      className="spinner"
-      {...rest}
-    />
+    <img src="/spinner.svg" alt="Loading spinner" className={" "} {...rest} />
   );
 };
 
