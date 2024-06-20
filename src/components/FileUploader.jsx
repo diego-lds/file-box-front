@@ -20,7 +20,6 @@ const FileUploader = ({
   const handleClick = () => {
     fileInputRef.current.click();
   };
-
   return (
     <div
       className={`bg-white rounded-sm flex justify-between  border border-dashed border-primaryColor p-4 ${className} `}
@@ -43,7 +42,7 @@ const FileUploader = ({
         </div>
       </div>
       {selectedFile && (
-        <div className="mt-4 flex flex-col sm:flex-row   items-center outline m-2">
+        <div className="mt-4 flex flex-col sm:flex-row   items-center  m-2">
           <div className="flex  items-center">
             <span className="text-gray-700 truncate">{selectedFile.name}</span>
           </div>

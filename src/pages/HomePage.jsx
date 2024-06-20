@@ -14,7 +14,7 @@ import Logo from "../components/Logo.jsx";
 import { googleLogout } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
 import UserProfile from "../components/UserProfile.jsx";
-import Icon from "../components/Icon.jsx";
+import localforage from "localforage";
 
 function HomePage() {
   const [user, setUser] = useState(null);
@@ -26,10 +26,18 @@ function HomePage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
+    const fetchStoredUser = async () => {
+      try {
+        const storedUser = await localforage.getItem("user");
+        if (storedUser) {
+          setUser(storedUser);
+        }
+      } catch (error) {
+        console.error("Erro ao recuperar o usuário do localforage:", error);
+      }
+    };
+
+    fetchStoredUser();
     handleFetchFiles();
   }, []);
 
@@ -53,7 +61,6 @@ function HomePage() {
   const handleSelectFile = useCallback((file) => {
     setSelectedFile(file);
   }, []);
-
   const handleUploadFile = async () => {
     setIsUploading(true);
     try {
@@ -87,9 +94,10 @@ function HomePage() {
     return files.filter((file) => filter === "" || file.type === filter);
   }, [files, filter]);
 
-  const handleLogout = () => {
-    toast.success("Logout realizado com sucesso!");
+  const handleLogout = async () => {
+    toast.success("Usuário deslogado!");
     googleLogout();
+    await localforage.removeItem("user");
     navigate("/");
   };
 
