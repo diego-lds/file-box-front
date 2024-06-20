@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import {
   deleteFileService,
@@ -89,10 +89,10 @@ function HomePage() {
     }
   };
 
-  const filteredFiles = useMemo(() => {
+  const filteredFiles = () => {
     if (!files.length) return [];
     return files.filter((file) => filter === "" || file.type === filter);
-  }, [files, filter]);
+  };
 
   const handleLogout = async () => {
     toast.success("Usuário deslogado!");
