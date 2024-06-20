@@ -5,7 +5,7 @@ import {
   fetchFilesService,
   uploadFileService,
 } from "../services/fileService.js";
-import FilterMenu from "../components/FilterMenu.jsx";
+import Filterbar from "../components/Filterbar.jsx";
 import SearchBar from "../components/SearchBar.jsx";
 import FileList from "../components/FileList.jsx";
 import FileUploader from "../components/FileUploader.jsx";
@@ -13,10 +13,8 @@ import { ToastContainer, toast } from "react-toastify";
 import Logo from "../components/Logo.jsx";
 import { googleLogout } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
-import LayoutGrid from "../components/LayoutGrid.jsx";
 import UserProfile from "../components/UserProfile.jsx";
 import Icon from "../components/Icon.jsx";
-import Filterbar from "../components/Filterbar.jsx";
 
 function HomePage() {
   const [user, setUser] = useState(null);
@@ -27,8 +25,26 @@ function HomePage() {
   const [isFetchingFiles, setIsFetchingFiles] = useState(true);
   const navigate = useNavigate();
 
-  const filteredFiles =
-    files && files.filter((file) => filter === "" || file.type === filter);
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+    handleFetchFiles();
+  }, []);
+
+  const handleFetchFiles = async () => {
+    setIsFetchingFiles(true);
+    try {
+      const data = await fetchFilesService();
+      setFiles(data);
+    } catch (error) {
+      console.error("Erro ao buscar os arquivos:", error);
+      toast.error("Erro ao buscar os arquivos.");
+    } finally {
+      setIsFetchingFiles(false);
+    }
+  };
 
   const handleClearInput = useCallback(() => {
     setSelectedFile(null);
@@ -66,32 +82,16 @@ function HomePage() {
     }
   };
 
-  const handleFetchFiles = async () => {
-    setIsFetchingFiles(true);
-    try {
-      const data = await fetchFilesService();
-      setFiles(data);
-    } catch (error) {
-      console.error("Erro ao buscar os arquivos:", error);
-      toast.error("Erro ao buscar os arquivos.");
-    } finally {
-      setIsFetchingFiles(false);
-    }
-  };
+  const filteredFiles = useMemo(() => {
+    if (!files.length) return [];
+    return files.filter((file) => filter === "" || file.type === filter);
+  }, [files, filter]);
 
   const handleLogout = () => {
     toast.success("Logout realizado com sucesso!");
     googleLogout();
     navigate("/");
   };
-
-  useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-    handleFetchFiles();
-  }, []);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -111,9 +111,15 @@ function HomePage() {
       <div className="mx-16 my-4 flex-grow">
         <Filterbar filter={filter} setFilter={setFilter} />
         <div className="mx-2 p-1 sm:mx-32 flex-grow">
-          <main className="flex flex-col">
-            <FileList items={filteredFiles} onDelete={handleDeleteFile} />
-          </main>
+          {filteredFiles.length > 0 ? (
+            <main className="flex flex-col">
+              <FileList items={filteredFiles} onDelete={handleDeleteFile} />
+            </main>
+          ) : (
+            <p className="text-center text-gray-500 mt-4">
+              Não há arquivos para exibir.
+            </p>
+          )}
         </div>
       </div>
       <footer className="fixed bottom-0 w-full bg-white border-t border-gray-200 py-4 px-4 sm:px-16">

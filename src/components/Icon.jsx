@@ -28,7 +28,6 @@ const Icons = {
   download: FaDownload,
   trash: FaTrash,
   other: FaFile,
-  download: FaDownload,
   upload: FaCloudUploadAlt,
   search: FaSearch,
   user: FaUser,
