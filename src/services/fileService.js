@@ -1,6 +1,6 @@
 import axios from "axios";
 // const BASE_URL = "http://localhost:3000";
-const BASE_URL = import.meta.env.VITE_API_DEV;
+const BASE_URL = import.meta.env.VITE_API;
 import fake from "./fake.js";
 export const fetchFilesService = async () => {
   try {
