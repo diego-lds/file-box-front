@@ -119,15 +119,9 @@ function HomePage() {
       <div className="mx-16 my-4 flex-grow">
         <Filterbar filter={filter} setFilter={setFilter} />
         <div className="mx-2 p-1 sm:mx-32 flex-grow">
-          {filteredFiles.length > 0 ? (
-            <main className="flex flex-col">
-              <FileList items={filteredFiles} onDelete={handleDeleteFile} />
-            </main>
-          ) : (
-            <p className="text-center text-gray-500 mt-4">
-              Não há arquivos para exibir.
-            </p>
-          )}
+          <main className="flex flex-col">
+            <FileList items={filteredFiles} onDelete={handleDeleteFile} />
+          </main>
         </div>
       </div>
       <footer className="fixed bottom-0 w-full bg-white border-t border-gray-200 py-4 px-4 sm:px-16">
