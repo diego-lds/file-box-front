@@ -1,5 +1,4 @@
 import React from "react";
-
 import { formatBytes } from "../utils";
 import Icon from "./Icon";
 
@@ -17,76 +16,67 @@ const types = {
 };
 
 const List = ({ items, onDelete }) => {
-  if (!items.length) return;
+  if (!items.length) return null;
+
+  const tableHeaderStyles =
+    "hidden sm:flex justify-between items-center h-12 border-b border-primaryColor text-center ";
+  const listItemStyles =
+    "flex  sm:flex-row justify-between items-center h-16 border-b border-gray-200 ";
+  const itemColumnStyles =
+    "hidden sm:block sm:w-1/6 text-slate-500 text-sm  text-center";
+  const actionColumnStyles =
+    "w-full sm:w-1/6 flex justify-end sm:justify-start items-center px-4 py-2 sm:py-4 gap-2";
+  const actionLinkStyles = "flex items-center  text-sm";
+  const actionButtonStyles = "flex items-center text-sm";
 
   return (
-    <ul className={" "}>
-      {items.map((item, index) => (
-        <li key={index} className={" "}>
-          <div className={" "}>
-            {types[item.extension]}
-            <p className={" "}>{item.name}</p>
-            <small className={" "}>{formatBytes(item.size)}</small>
-          </div>
-          <div className={" "}>
-            <a
-              href={item.url}
-              download
-              className={" "}
-              title={`Baixar ${item.name}`}
-            >
-              <Icon name="download" />
-            </a>
-            <button
-              className={" "}
-              title={`Apagar arquivo ${item.name}`}
-              aria-label={`Apagar arquivo ${item.name}`}
-              onClick={() => onDelete(item)}
-            >
-              <Icon name="trash" />
-            </button>
-          </div>
+    <div className="">
+      <ul className="flex flex-col">
+        <li className={tableHeaderStyles}>
+          <p className="w-1/3 font-bold text-sm text-start">Nome</p>
+          <p className="w-1/6 font-bold text-sm ">Tipo</p>
+          <p className="w-1/6 font-bold text-sm">Data</p>
+          <p className="w-1/6 font-bold text-sm">Tamanho</p>
+          <p className="w-1/6 font-bold text-sm">Ações</p>
         </li>
-      ))}
-    </ul>
+        {items.map((item, index) => (
+          <li key={index} className={listItemStyles}>
+            <div className="w-full sm:w-1/3 flex items-center mb-2 sm:mb-0">
+              {types[item.extension]}
+              <p className="ml-2 text-sm overflow-hidden text-ellipsis whitespace-nowrap">
+                {item.name}
+              </p>
+            </div>
+            <p className={itemColumnStyles + " "}>{item.type}</p>
+            <p className={itemColumnStyles}>
+              {new Date(item.lastModified).toLocaleDateString()}
+            </p>
+            <p className={itemColumnStyles}>{formatBytes(item.size)}</p>
+            <div className={actionColumnStyles}>
+              <a
+                href={item.url}
+                download
+                className={actionLinkStyles}
+                title={`Baixar ${item.name}`}
+              >
+                <Icon name="download" className="mr-1" />
+                <span className="hidden sm:block">Baixar</span>
+              </a>
+              <button
+                className={actionButtonStyles}
+                title={`Apagar arquivo ${item.name}`}
+                aria-label={`Apagar arquivo ${item.name}`}
+                onClick={() => onDelete(item)}
+              >
+                <Icon name="trash" className="mr-1" />
+                <span className="hidden sm:block">Excluir</span>
+              </button>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };
-
-const ListItem = ({ item, onDelete, icon }) => {
-  const { name, extension, size, url } = item;
-
-  const handleDelete = () => {
-    onDelete(item);
-  };
-
-  return (
-    <li className={" "}>
-      <div className={" "}>
-        {icon}
-        <p className={" "}>{name}</p>
-        <small className={" "}>{formatBytes(size)}</small>
-      </div>
-      <div className={" "}>
-        <a href={url} download className={" "} title={`Baixar ${name}`}>
-          <Icon name="download" />
-        </a>
-        <button
-          className={" "}
-          title={`Apagar arquivo ${name}`}
-          aria-label={`Apagar arquivo ${name}`}
-          onClick={handleDelete}
-        >
-          <Icon name="trash" />
-        </button>
-      </div>
-    </li>
-  );
-};
-
-const Empty = () => (
-  <li className={" "}>
-    <p>Nenhum item encontrado.</p>
-  </li>
-);
 
 export default List;

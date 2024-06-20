@@ -50,7 +50,7 @@ const FilterMenu = ({ filter, setFilter }) => {
   };
 
   return (
-    <nav className={" "}>
+    <nav className={"outline"}>
       {navList.map((nav) => (
         <li key={nav.type}>
           <a

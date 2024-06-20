@@ -93,21 +93,6 @@ function HomePage() {
     handleFetchFiles();
   }, []);
 
-  const Header = () => (
-    <>
-      <Logo />
-      <SearchBar className={" "} />
-      {user && <UserProfile {...user} />}
-      <button className={" "} onClick={handleLogout}>
-        Sair
-      </button>
-    </>
-  );
-  const Aside = () => (
-    <>
-      <FilterMenu filter={filter} setFilter={setFilter} />
-    </>
-  );
   const Footer = () => (
     <>
       <h2 className={" "}>Carregue um arquivo</h2>
@@ -121,50 +106,33 @@ function HomePage() {
       />
     </>
   );
-  const Main = () => (
-    <>
-      <h2 className={" "}>Meus Arquivos</h2>
-      <FileList items={filteredFiles} onDelete={handleDeleteFile} />
-    </>
-  );
-  console.log(user);
+
   return (
     <>
-      <div>
-        <div className="size-screen ">
-          <header className="flex items-center justify-between h-20 gap-4 px-4">
-            <Logo />
-            <div className="hidden flex-grow md:block">
-              <SearchBar />
-            </div>
-            {user && (
-              <UserProfile
-                picture={user?.picture}
-                name={user?.name}
-                handleLogout={handleLogout}
-              />
-            )}
-          </header>
-
+      <div className="size-screen">
+        <header className="flex items-center justify-between h-20 gap-4 px-4">
+          <Logo />
+          <div className="hidden flex-grow md:block">
+            <SearchBar />
+          </div>
+          {user && (
+            <UserProfile
+              picture={user?.picture}
+              name={user?.name}
+              handleLogout={handleLogout}
+            />
+          )}
+        </header>
+        <div className="mx-16 my-4">
           <Filterbar filter={filter} setFilter={setFilter} />
-
-          <main className="flex">Content</main>
-          {/* <header className="flex outline">
-            <div className=" size-24 bg-slate-100 flex-wrap place-items-center">
-              <Icon name="box" size={32} className="" />
-              filebox
-            </div>
-            <SearchBar className={"border border-custom"} />
-            <button
-              className={"border border-custom  px-4"}
-              onClick={handleLogout}
-            >
-              Sair
-            </button>
-          </header> */}
         </div>
-        <ToastContainer />
+        <div className="mx-2 p-1 sm:mx-32">
+          <main className="flex flex-col">
+            <FileList items={filteredFiles} onDelete={handleDeleteFile} />
+          </main>
+        </div>
       </div>
+      <ToastContainer />
     </>
   );
 }

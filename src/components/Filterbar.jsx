@@ -1,15 +1,7 @@
 import React from "react";
-import { FaBoxOpen } from "react-icons/fa";
 import Icon from "../components/Icon";
 import Divider from "./Divider";
 
-// Todos os arquivos
-// Documentos
-// Áudio
-// Fotos
-// Comprimidos
-// Vídeos
-// Outros
 const navList = [
   {
     type: "",
@@ -54,23 +46,26 @@ const Filterbar = ({ filter, setFilter }) => {
   };
 
   const isActive = (type) => {
-    return filter === type ? "bg-white" : "";
+    return filter === type ? "bg-slate-200" : "";
   };
 
   return (
-    <ul className={"flex h-12 outline"}>
+    <ul className="flex h-12 overflow-y-hidden">
       {navList.map((nav) => (
-        <li className="flex flex-grow justify-center" key={nav.type}>
+        <li key={nav.type} className="flex flex-grow justify-center">
           <a
             href="#"
             onClick={() => handleFilterChange(nav.type)}
-            className={"flex  items-center justify-between gap-2"}
+            className={`flex items-center justify-between gap-2 p-2 rounded-lg ${isActive(
+              nav.type
+            )}`}
             aria-current={filter === nav.type ? "page" : undefined}
           >
-            <Icon name={nav.icon} />
-            <p className={"hidden text-sm md:block "}>{nav.label}</p>
+            <Icon name={nav.icon} size="22" />
+            <p className="hidden text-sm text-slate-700 font-bold md:block">
+              {nav.label}
+            </p>
           </a>
-
           <Divider />
         </li>
       ))}
