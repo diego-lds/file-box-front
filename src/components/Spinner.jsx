@@ -1,6 +1,10 @@
-const Spinner = ({ ...rest }) => {
+import React from "react";
+
+const Spinner = () => {
   return (
-    <img src="/spinner.svg" alt="Loading spinner" className={" "} {...rest} />
+    <div className={"flex items-center justify-center"}>
+      <img src="/spinner.svg" alt="Loading spinner" className="animate-spin " />
+    </div>
   );
 };
 

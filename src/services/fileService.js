@@ -3,16 +3,9 @@ import axios from "axios";
 const BASE_URL = import.meta.env.VITE_API_DEV;
 import fake from "./fake.js";
 export const fetchFilesService = async () => {
-  // try {
-  //   const response = await axios.get(`${BASE_URL}/files`);
-  //   return response.data;
-  // } catch (error) {
-  //   console.error("Erro ao buscar os arquivos:", error);
-  //   throw error;
-  // }
   try {
-    console.log(fake);
-    return fake;
+    const response = await axios.get(`${BASE_URL}/files`);
+    return response.data;
   } catch (error) {
     console.error("Erro ao buscar os arquivos:", error);
     throw error;

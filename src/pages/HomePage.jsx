@@ -93,47 +93,42 @@ function HomePage() {
     handleFetchFiles();
   }, []);
 
-  const Footer = () => (
-    <>
-      <h2 className={" "}>Carregue um arquivo</h2>
-      <FileUploader
-        className={" "}
-        handleUploadFile={handleUploadFile}
-        handleSelectFile={handleSelectFile}
-        handleClearInput={handleClearInput}
-        selectedFile={selectedFile}
-        isUploading={isUploading}
-      />
-    </>
-  );
-
   return (
-    <>
-      <div className="size-screen">
-        <header className="flex items-center justify-between h-20 gap-4 px-4">
-          <Logo />
-          <div className="hidden flex-grow md:block">
-            <SearchBar />
-          </div>
-          {user && (
-            <UserProfile
-              picture={user?.picture}
-              name={user?.name}
-              handleLogout={handleLogout}
-            />
-          )}
-        </header>
-        <div className="mx-16 my-4">
-          <Filterbar filter={filter} setFilter={setFilter} />
+    <div className="flex flex-col min-h-screen">
+      <header className="flex items-center justify-between h-20 gap-4 px-4">
+        <Logo />
+        <div className="hidden flex-grow md:block">
+          <SearchBar />
         </div>
-        <div className="mx-2 p-1 sm:mx-32">
+        {user && (
+          <UserProfile
+            picture={user?.picture}
+            name={user?.name}
+            handleLogout={handleLogout}
+          />
+        )}
+      </header>
+      <div className="mx-16 my-4 flex-grow">
+        <Filterbar filter={filter} setFilter={setFilter} />
+        <div className="mx-2 p-1 sm:mx-32 flex-grow">
           <main className="flex flex-col">
             <FileList items={filteredFiles} onDelete={handleDeleteFile} />
           </main>
         </div>
       </div>
+      <footer className="fixed bottom-0 w-full bg-white border-t border-gray-200 py-4 px-4 sm:px-16">
+        <div className="max-w-7xl mx-auto">
+          <FileUploader
+            handleUploadFile={handleUploadFile}
+            handleSelectFile={handleSelectFile}
+            handleClearInput={handleClearInput}
+            selectedFile={selectedFile}
+            isUploading={isUploading}
+          />
+        </div>
+      </footer>
       <ToastContainer />
-    </>
+    </div>
   );
 }
 
