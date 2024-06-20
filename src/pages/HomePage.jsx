@@ -25,7 +25,7 @@ function HomePage() {
   const [isUploading, setIsUploading] = useState(false);
   const [isFetchingFiles, setIsFetchingFiles] = useState(true);
   const navigate = useNavigate();
-
+  console.log({ filter });
   useEffect(() => {
     const fetchStoredUser = async () => {
       try {

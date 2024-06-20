@@ -15,66 +15,77 @@ const types = {
   rar: <Icon name="compressed" />,
 };
 
-const List = ({ items = [], onDelete }) => {
+const FileList = ({ items = [], filter, onDelete }) => {
   const tableHeaderStyles =
     "hidden sm:flex justify-between items-center h-12 border-b border-primaryColor text-center ";
   const listItemStyles =
-    "flex  sm:flex-row justify-between items-center h-16 border-b border-gray-200 ";
+    "flex sm:flex-row justify-between items-center h-16 border-b border-gray-200 ";
   const itemColumnStyles =
-    "hidden sm:block sm:w-1/6 text-slate-500 text-sm  text-center";
+    "hidden sm:block sm:w-1/6 text-slate-500 text-sm text-center";
   const actionColumnStyles =
     "w-full sm:w-1/6 flex justify-end sm:justify-start items-center px-4 py-2 sm:py-4 gap-2";
-  const actionLinkStyles = "flex items-center  text-sm";
+  const actionLinkStyles = "flex items-center text-sm";
   const actionButtonStyles = "flex items-center text-sm";
 
+  const filteredItems = items.filter(
+    (file) => filter === "" || file.type === filter
+  );
+
+  console.log(items);
   return (
-    <div className="">
-      <ul className="flex flex-col">
-        <li className={tableHeaderStyles}>
-          <p className="w-1/3 font-bold text-sm text-start">Nome</p>
-          <p className="w-1/6 font-bold text-sm ">Tipo</p>
-          <p className="w-1/6 font-bold text-sm">Data</p>
-          <p className="w-1/6 font-bold text-sm">Tamanho</p>
-          <p className="w-1/6 font-bold text-sm">Ações</p>
-        </li>
-        {items.map((item, index) => (
-          <li key={index} className={listItemStyles}>
-            <div className="w-full sm:w-1/3 flex items-center mb-2 sm:mb-0">
-              {types[item.extension]}
-              <p className="ml-2 text-sm overflow-hidden text-ellipsis whitespace-nowrap">
-                {item.name}
-              </p>
-            </div>
-            <p className={itemColumnStyles + " "}>{item.type}</p>
-            <p className={itemColumnStyles}>
-              {new Date(item.lastModified).toLocaleDateString()}
-            </p>
-            <p className={itemColumnStyles}>{formatBytes(item.size)}</p>
-            <div className={actionColumnStyles}>
-              <a
-                href={item.url}
-                download
-                className={actionLinkStyles}
-                title={`Baixar ${item.name}`}
-              >
-                <Icon name="download" className="mr-1" />
-                <span className="hidden sm:block">Baixar</span>
-              </a>
-              <button
-                className={actionButtonStyles}
-                title={`Apagar arquivo ${item.name}`}
-                aria-label={`Apagar arquivo ${item.name}`}
-                onClick={() => onDelete(item)}
-              >
-                <Icon name="trash" className="mr-1" />
-                <span className="hidden sm:block">Excluir</span>
-              </button>
-            </div>
+    <div>
+      {filteredItems.length === 0 ? (
+        <p className="text-center text-gray-500 mt-4">
+          Não há arquivos para exibir.
+        </p>
+      ) : (
+        <ul className="flex flex-col">
+          <li className={tableHeaderStyles}>
+            <p className="w-1/3 font-bold text-sm text-start">Nome</p>
+            <p className="w-1/6 font-bold text-sm">Tipo</p>
+            <p className="w-1/6 font-bold text-sm">Data</p>
+            <p className="w-1/6 font-bold text-sm">Tamanho</p>
+            <p className="w-1/6 font-bold text-sm">Ações</p>
           </li>
-        ))}
-      </ul>
+          {filteredItems.map((item, index) => (
+            <li key={index} className={listItemStyles}>
+              <div className="w-full sm:w-1/3 flex items-center mb-2 sm:mb-0">
+                {types[item.extension]}
+                <p className="ml-2 text-sm overflow-hidden text-ellipsis whitespace-nowrap">
+                  {item.name}
+                </p>
+              </div>
+              <p className={itemColumnStyles}>{item.type}</p>
+              <p className={itemColumnStyles}>
+                {new Date(item.lastModified).toLocaleDateString()}
+              </p>
+              <p className={itemColumnStyles}>{formatBytes(item.size)}</p>
+              <div className={actionColumnStyles}>
+                <a
+                  href={item.url}
+                  download
+                  className={actionLinkStyles}
+                  title={`Baixar ${item.name}`}
+                >
+                  <Icon name="download" className="mr-1" />
+                  <span className="hidden sm:block">Baixar</span>
+                </a>
+                <button
+                  className={actionButtonStyles}
+                  title={`Apagar arquivo ${item.name}`}
+                  aria-label={`Apagar arquivo ${item.name}`}
+                  onClick={() => onDelete(item)}
+                >
+                  <Icon name="trash" className="mr-1" />
+                  <span className="hidden sm:block">Excluir</span>
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };
 
-export default List;
+export default FileList;
