@@ -4,9 +4,9 @@ import Icon from "./Icon";
 
 const Logo = () => {
   return (
-    <div className={" "}>
+    <div className={"flex items-center justify-between w-20 "}>
       <Icon name="box" size={32} />
-      <h1 className={" "}>filebox</h1>
+      <p className="text-lg pl-1 text-primaryColor">filebox</p>
     </div>
   );
 };

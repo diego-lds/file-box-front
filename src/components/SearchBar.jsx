@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
+import Icon from "./Icon";
 
-const SearchBar = ({ className }) => {
+const SearchBar = () => {
   const inputRef = useRef(null);
 
   const handleIconClick = () => {
@@ -8,45 +9,25 @@ const SearchBar = ({ className }) => {
   };
 
   return (
-    <div className={" "}>
-      <label htmlFor="searchInput" className={" "}>
+    <div className={`relative flex items-center  border-custom   `}>
+      <label htmlFor="searchInput" className="sr-only">
         Busca
       </label>
       <input
         id="searchInput"
         type="text"
         placeholder="Busca..."
-        className={" "}
+        className="p-2  focus:outline-none"
         ref={inputRef}
-        style={{ width: "100%", height: "100%" }} // Garantir que o input preencha o espaço disponível
       />
       <div
-        className={" "}
+        className="absolute right-3 p-1 cursor-pointer"
         onClick={handleIconClick}
-        style={{ width: "24px", height: "24px" }} // Reservar espaço para o ícone
       >
-        <Lens />
+        <Icon name="search" />
       </div>
     </div>
   );
 };
-
-const Lens = () => (
-  <svg
-    className={" "}
-    fill="none"
-    stroke="currentColor"
-    viewBox="0 0 24 24"
-    width="24"
-    height="24"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="2"
-      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-    ></path>
-  </svg>
-);
 
 export default SearchBar;

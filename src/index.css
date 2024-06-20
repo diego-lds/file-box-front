@@ -2,25 +2,53 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  color-scheme: light dark;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
 body {
-  font-family: Arial, Helvetica, sans-serif, system-ui;
-  line-height: 1.6;
-  font-size: 14px;
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+  font-family: Arial, sans-serif;
+  background-color: #fff;
+  color: #000;
 }
 
-h2 {
-  font-size: 1.2rem;
-  color: black;
+ul,
+ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-li {
-  list-style-type: none;
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button {
+  background: none;
+  cursor: pointer;
+}
+
+input {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+/* styles.css */
+.border-custom {
+  @apply border border-gray-400 rounded-sm;
 }

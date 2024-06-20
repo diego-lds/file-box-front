@@ -15,6 +15,7 @@ import { googleLogout } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
 import LayoutGrid from "../components/LayoutGrid.jsx";
 import UserProfile from "../components/UserProfile.jsx";
+import Icon from "../components/Icon.jsx";
 
 function HomePage() {
   const [user, setUser] = useState(null);
@@ -125,16 +126,44 @@ function HomePage() {
       <FileList items={filteredFiles} onDelete={handleDeleteFile} />
     </>
   );
-
+  console.log(user);
   return (
     <>
-      <LayoutGrid
-        header={<Header />}
-        aside={<Aside />}
-        main={<Main />}
-        footer={<Footer />}
-      />
-      <ToastContainer />
+      <div>
+        <div className="size-screen ">
+          <header className="flex items-center justify-between h-20 gap-4 px-4">
+            <Logo />
+            <div className="hidden flex-grow md:block">
+              <SearchBar />
+            </div>
+            {user && (
+              <UserProfile
+                picture={user?.picture}
+                name={user?.name}
+                handleLogout={handleLogout}
+              />
+            )}
+          </header>
+          <main className="flex">
+            <aside className="basis-16 md:basis-32 outline">Aside</aside>
+            <article className="flex-1 outline ">Main</article>
+          </main>
+          {/* <header className="flex outline">
+            <div className=" size-24 bg-slate-100 flex-wrap place-items-center">
+              <Icon name="box" size={32} className="" />
+              filebox
+            </div>
+            <SearchBar className={"border border-custom"} />
+            <button
+              className={"border border-custom  px-4"}
+              onClick={handleLogout}
+            >
+              Sair
+            </button>
+          </header> */}
+        </div>
+        <ToastContainer />
+      </div>
     </>
   );
 }

@@ -13,6 +13,8 @@ import {
   FaUpload,
   FaTrash,
   FaCloudUploadAlt,
+  FaSearch,
+  FaUser,
 } from "react-icons/fa";
 
 const Icons = {
@@ -28,6 +30,8 @@ const Icons = {
   other: FaFile,
   download: FaDownload,
   upload: FaCloudUploadAlt,
+  search: FaSearch,
+  user: FaUser,
 };
 
 const Icon = ({
