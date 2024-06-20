@@ -15,9 +15,7 @@ const types = {
   rar: <Icon name="compressed" />,
 };
 
-const List = ({ items, onDelete }) => {
-  if (!items.length) return null;
-
+const List = ({ items = [], onDelete }) => {
   const tableHeaderStyles =
     "hidden sm:flex justify-between items-center h-12 border-b border-primaryColor text-center ";
   const listItemStyles =

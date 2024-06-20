@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import "react-toastify/dist/ReactToastify.css";
+import localforage from "localforage";
 import {
   deleteFileService,
   fetchFilesService,
@@ -14,7 +15,7 @@ import Logo from "../components/Logo.jsx";
 import { googleLogout } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
 import UserProfile from "../components/UserProfile.jsx";
-import localforage from "localforage";
+import Icon from "../components/Icon.jsx";
 
 function HomePage() {
   const [user, setUser] = useState(null);
@@ -61,6 +62,7 @@ function HomePage() {
   const handleSelectFile = useCallback((file) => {
     setSelectedFile(file);
   }, []);
+
   const handleUploadFile = async () => {
     setIsUploading(true);
     try {
@@ -89,13 +91,8 @@ function HomePage() {
     }
   };
 
-  const filteredFiles = () => {
-    if (!files.length) return [];
-    return files.filter((file) => filter === "" || file.type === filter);
-  };
-
   const handleLogout = async () => {
-    toast.success("Usuário deslogado!");
+    toast.success("Logout realizado com sucesso!");
     googleLogout();
     await localforage.removeItem("user");
     navigate("/");
@@ -106,7 +103,7 @@ function HomePage() {
       <header className="flex items-center justify-between h-20 gap-4 px-4">
         <Logo />
         <div className="hidden flex-grow md:block">
-          <SearchBar />
+          <SearchBar setFilter={setFilter} />
         </div>
         {user && (
           <UserProfile
@@ -119,9 +116,7 @@ function HomePage() {
       <div className="mx-16 my-4 flex-grow">
         <Filterbar filter={filter} setFilter={setFilter} />
         <div className="mx-2 p-1 sm:mx-32 flex-grow">
-          <main className="flex flex-col">
-            <FileList items={filteredFiles} onDelete={handleDeleteFile} />
-          </main>
+          <FileList items={files} filter={filter} onDelete={handleDeleteFile} />
         </div>
       </div>
       <footer className="fixed bottom-0 w-full bg-white border-t border-gray-200 py-4 px-4 sm:px-16">
