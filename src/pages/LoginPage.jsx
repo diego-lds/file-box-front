@@ -44,10 +44,10 @@ const LoginPage = () => {
   };
 
   return (
-    <div className={" "}>
-      <h1 className={" "}>filebox</h1>
-      <img src={Logo} className={" "} />
-      <h1 className={" "}>Entre com sua conta do Google</h1>
+    <div className=" h-screen font-sans font-bold  bg-coolBlue text-white flex flex-col justify-center items-center">
+      <h1 className="text-7xl">filebox</h1>
+      <img src={Logo} className=" size-96" />
+      <h1 className="text-md mt-4 ">Entre com sua conta do Google</h1>
       <GoogleLogin
         onSuccess={handleSuccess}
         onError={handleError}
