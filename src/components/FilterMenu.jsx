@@ -1,5 +1,4 @@
 import React from "react";
-import { FaBoxOpen } from "react-icons/fa";
 import Icon from "../components/Icon";
 import Divider from "./Divider";
 const navList = [
