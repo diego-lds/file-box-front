@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 import LayoutGrid from "../components/LayoutGrid.jsx";
 import UserProfile from "../components/UserProfile.jsx";
 import Icon from "../components/Icon.jsx";
+import Filterbar from "../components/Filterbar.jsx";
 
 function HomePage() {
   const [user, setUser] = useState(null);
@@ -144,10 +145,10 @@ function HomePage() {
               />
             )}
           </header>
-          <main className="flex">
-            <aside className="basis-16 md:basis-32 outline">Aside</aside>
-            <article className="flex-1 outline ">Main</article>
-          </main>
+
+          <Filterbar filter={filter} setFilter={setFilter} />
+
+          <main className="flex">Content</main>
           {/* <header className="flex outline">
             <div className=" size-24 bg-slate-100 flex-wrap place-items-center">
               <Icon name="box" size={32} className="" />
