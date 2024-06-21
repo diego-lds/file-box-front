@@ -115,7 +115,7 @@ function HomePage() {
       </header>
       <div className="mx-16 my-4 flex-grow">
         <Filterbar filter={filter} setFilter={setFilter} />
-        <div className="mx-2 p-1 sm:mx-32 flex-grow">
+        <div className="mx-1 sm:mx-32 flex-grow">
           <FileList items={files} filter={filter} onDelete={handleDeleteFile} />
         </div>
       </div>
