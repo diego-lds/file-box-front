@@ -1,4 +1,3 @@
-// Icon.js
 import React from "react";
 import {
   FaBoxOpen,
@@ -27,10 +26,10 @@ const Icons = {
   image: FaImage,
   download: FaDownload,
   trash: FaTrash,
-  other: FaFile,
   upload: FaCloudUploadAlt,
   search: FaSearch,
   user: FaUser,
+  other: FaFile,
 };
 
 const Icon = ({
@@ -39,10 +38,9 @@ const Icon = ({
   size = "16px",
   ...props
 }) => {
-  const IconComponent = Icons[name];
-  return IconComponent ? (
-    <IconComponent color={color} size={size} {...props} />
-  ) : null;
+  const IconComponent = Icons[name] || Icons.other;
+
+  return <IconComponent color={color} size={size} {...props} />;
 };
 
 export default Icon;
