@@ -27,31 +27,29 @@ const FileList = ({ items = [], filter, onDelete }) => {
   const actionLinkStyles = "flex items-center text-sm";
   const actionButtonStyles = "flex items-center text-sm";
 
-  const filteredItems = items.filter(
-    (file) => filter === "" || file.type === filter
-  );
+  const filteredItems =
+    items && items.filter((file) => filter === "" || file.type === filter);
 
-  console.log(items);
   return (
     <div>
       {filteredItems.length === 0 ? (
-        <p className="text-center text-gray-500 mt-4">
+        <p className="mt-4 text-center text-gray-500">
           Não há arquivos para exibir.
         </p>
       ) : (
         <ul className="flex flex-col">
           <li className={tableHeaderStyles}>
-            <p className="w-1/3 font-bold text-sm text-start">Nome</p>
-            <p className="w-1/6 font-bold text-sm">Tipo</p>
-            <p className="w-1/6 font-bold text-sm">Data</p>
-            <p className="w-1/6 font-bold text-sm">Tamanho</p>
-            <p className="w-1/6 font-bold text-sm">Ações</p>
+            <p className="w-1/3 text-sm font-bold text-start">Nome</p>
+            <p className="w-1/6 text-sm font-bold">Tipo</p>
+            <p className="w-1/6 text-sm font-bold">Data</p>
+            <p className="w-1/6 text-sm font-bold">Tamanho</p>
+            <p className="w-1/6 text-sm font-bold">Ações</p>
           </li>
           {filteredItems.map((item, index) => (
             <li key={index} className={listItemStyles}>
-              <div className="w-full sm:w-1/3 flex items-center mb-2 sm:mb-0">
+              <div className="flex items-center mb-2 w-full sm:w-1/3 sm:mb-0">
                 {types[item.extension]}
-                <p className="ml-2 text-sm overflow-hidden text-ellipsis whitespace-nowrap">
+                <p className="overflow-hidden ml-2 text-sm whitespace-nowrap text-ellipsis">
                   {item.name}
                 </p>
               </div>

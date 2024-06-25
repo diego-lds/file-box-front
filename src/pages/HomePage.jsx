@@ -3,8 +3,8 @@ import "react-toastify/dist/ReactToastify.css";
 import localforage from "localforage";
 import {
   deleteFileService,
-  fetchFilesService,
-  uploadFileService,
+  fetchFilesByUserService,
+  uploadFileByUserService,
 } from "../services/fileService.js";
 import Filterbar from "../components/Filterbar.jsx";
 import SearchBar from "../components/SearchBar.jsx";
@@ -15,7 +15,6 @@ import Logo from "../components/Logo.jsx";
 import { googleLogout } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
 import UserProfile from "../components/UserProfile.jsx";
-import Icon from "../components/Icon.jsx";
 
 function HomePage() {
   const [user, setUser] = useState(null);
@@ -25,7 +24,7 @@ function HomePage() {
   const [isUploading, setIsUploading] = useState(false);
   const [isFetchingFiles, setIsFetchingFiles] = useState(true);
   const navigate = useNavigate();
-  console.log({ filter });
+
   useEffect(() => {
     const fetchStoredUser = async () => {
       try {
@@ -39,17 +38,22 @@ function HomePage() {
     };
 
     fetchStoredUser();
-    handleFetchFiles();
   }, []);
 
+  useEffect(() => {
+    handleFetchFiles();
+  }, [user]);
+
   const handleFetchFiles = async () => {
+    if (!user) return;
     setIsFetchingFiles(true);
+
     try {
-      const data = await fetchFilesService();
-      setFiles(data);
+      const files = await fetchFilesByUserService(user.email);
+
+      setFiles(files);
     } catch (error) {
-      console.error("Erro ao buscar os arquivos:", error);
-      toast.error("Erro ao buscar os arquivos.");
+      console.error("Erro ao buscar os arquivos.", error);
     } finally {
       setIsFetchingFiles(false);
     }
@@ -64,9 +68,10 @@ function HomePage() {
   }, []);
 
   const handleUploadFile = async () => {
+    if (!user) return;
     setIsUploading(true);
     try {
-      await uploadFileService(selectedFile);
+      await uploadFileByUserService(selectedFile, user.email);
       await handleFetchFiles();
       handleClearInput();
       toast.success("Arquivo enviado com sucesso.");
@@ -77,12 +82,11 @@ function HomePage() {
       setIsUploading(false);
     }
   };
-
   const handleDeleteFile = async (file) => {
     if (!window.confirm(`Deletar arquivo ${file.name}?`)) return;
-
+    console.log(file);
     try {
-      await deleteFileService(file);
+      await deleteFileService(file, user.email);
       await handleFetchFiles();
       toast.success("Arquivo deletado com sucesso!");
     } catch (error) {
@@ -100,7 +104,7 @@ function HomePage() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <header className="flex items-center justify-between h-20 gap-4 px-4">
+      <header className="flex gap-4 justify-between items-center px-4 h-20">
         <Logo />
         <div className="hidden flex-grow md:block">
           <SearchBar setFilter={setFilter} />
@@ -113,14 +117,14 @@ function HomePage() {
           />
         )}
       </header>
-      <div className="mx-16 my-4 flex-grow">
+      <div className="flex-grow mx-16 my-4">
         <Filterbar filter={filter} setFilter={setFilter} />
-        <div className="mx-1 sm:mx-32 flex-grow">
+        <div className="flex-grow mx-1 sm:mx-32">
           <FileList items={files} filter={filter} onDelete={handleDeleteFile} />
         </div>
       </div>
-      <footer className="fixed bottom-0 w-full bg-white border-t border-gray-200 py-4 px-4 sm:px-16">
-        <div className="max-w-7xl mx-auto">
+      <footer className="fixed bottom-0 px-4 py-4 w-full bg-white border-t border-gray-200 sm:px-16">
+        <div className="mx-auto max-w-7xl">
           <FileUploader
             handleUploadFile={handleUploadFile}
             handleSelectFile={handleSelectFile}
