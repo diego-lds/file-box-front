@@ -14,6 +14,7 @@ const types = {
   zip: <Icon name="compressed" />,
   rar: <Icon name="compressed" />,
   odt: <Icon name="document" />,
+  odt: <Icon name="document" />,
 };
 
 const FileList = ({ items = [], filter, onDelete }) => {

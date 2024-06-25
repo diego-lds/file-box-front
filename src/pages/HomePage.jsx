@@ -14,7 +14,7 @@ import { ToastContainer, toast } from "react-toastify";
 import Logo from "../components/Logo.jsx";
 import { googleLogout } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
-import UserProfile from "../components/UserProfile.jsx";
+import Profile from "../components/Profile.jsx";
 
 function HomePage() {
   const [user, setUser] = useState(null);
@@ -110,7 +110,7 @@ function HomePage() {
           <SearchBar setFilter={setFilter} />
         </div>
         {user && (
-          <UserProfile
+          <Profile
             picture={user?.picture}
             name={user?.name}
             handleLogout={handleLogout}

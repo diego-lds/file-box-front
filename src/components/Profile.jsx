@@ -1,4 +1,4 @@
-const UserProfile = ({ name, picture, handleLogout }) => {
+const Profile = ({ name, picture, handleLogout }) => {
   return (
     <div
       className={
@@ -10,7 +10,7 @@ const UserProfile = ({ name, picture, handleLogout }) => {
       <img
         src={picture}
         alt={`Foto de perfil`}
-        className={"rounded-full w-10 md:w-14"}
+        className={"rounded-full w-10 md:w-12"}
         referrerPolicy="no-referrer"
       />
       <div>
@@ -25,4 +25,4 @@ const UserProfile = ({ name, picture, handleLogout }) => {
   );
 };
 
-export default UserProfile;
+export default Profile;
