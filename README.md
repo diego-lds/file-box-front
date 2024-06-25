@@ -1,3 +1,8 @@
+
+## Filebox - Armazenador de arquivos
+![image](https://github.com/diego-lds/file-box-front/assets/4356478/44769ce8-d36c-41b5-b744-beb0ef87310e)
+
+
 Aplicativo de Gerenciamento de Arquivos
 Este é um aplicativo de gerenciamento de arquivos desenvolvido com React. Ele permite que os usuários façam upload, visualizem, filtrem e excluam arquivos. O aplicativo integra-se com o Google OAuth para autenticação de usuários e usa localForage para armazenamento local.
 
