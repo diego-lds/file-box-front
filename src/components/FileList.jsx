@@ -43,7 +43,7 @@ const FileList = ({ items = [], filter, onDelete }) => {
           <li className={tableHeaderStyles}>
             <p className="w-1/3 text-sm font-bold text-start">Nome</p>
             <p className="w-1/6 text-sm font-bold">Tipo</p>
-            <p className="w-1/6 text-sm font-bold">Data</p>
+            <p className="w-1/6 text-sm font-bold">Última modificação</p>
             <p className="w-1/6 text-sm font-bold">Tamanho</p>
             <p className="w-1/6 text-sm font-bold">Ações</p>
           </li>
@@ -57,7 +57,7 @@ const FileList = ({ items = [], filter, onDelete }) => {
               </div>
               <p className={itemColumnStyles}>{item.type}</p>
               <p className={itemColumnStyles}>
-                {new Date(item.lastModified).toLocaleDateString()}
+                {new Date(item.lastModified).toLocaleDateString("pt-BR")}
               </p>
               <p className={itemColumnStyles}>{formatBytes(item.size)}</p>
               <div className={actionColumnStyles}>
