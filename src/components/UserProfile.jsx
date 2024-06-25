@@ -2,7 +2,7 @@ const UserProfile = ({ name, picture, handleLogout }) => {
   return (
     <div
       className={
-        "flex items-center justify-around md:justify-between basis-64  "
+        "flex items-center justify-evenly md:justify-between basis-64  "
       }
     >
       <p className={"text-sm "}>{name}</p>

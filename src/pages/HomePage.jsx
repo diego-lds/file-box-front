@@ -104,9 +104,9 @@ function HomePage() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <header className="flex gap-4 justify-between items-center px-4 h-20">
+      <header className="flex justify-between items-center px-4 h-20">
         <Logo />
-        <div className="hidden flex-grow md:block">
+        <div className="hidden flex-grow md:block md:m-2">
           <SearchBar setFilter={setFilter} />
         </div>
         {user && (
