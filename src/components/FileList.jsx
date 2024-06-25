@@ -13,6 +13,7 @@ const types = {
   mp4: <Icon name="video" />,
   zip: <Icon name="compressed" />,
   rar: <Icon name="compressed" />,
+  odt: <Icon name="document" />,
 };
 
 const FileList = ({ items = [], filter, onDelete }) => {
