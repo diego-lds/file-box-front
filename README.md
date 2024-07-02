@@ -14,6 +14,8 @@ Este é um aplicativo de gerenciamento de arquivos desenvolvido com React. Ele p
 - **Design Responsivo**: Otimizado para visualização em desktop e dispositivos móveis.
 - **Notificações**: Notificações toast para feedback do usuário.
 - **Armazenamento Persistente**: Uso do localForage para armazenar dados do usuário.
+- **Filtro da listagem de arquivos**: Campo para filtrar os arquivos conforme o user digita.
+
 
 ## Tecnologias Utilizadas
 
