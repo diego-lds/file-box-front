@@ -1,11 +1,16 @@
 import React, { useRef } from "react";
 import Icon from "./Icon";
 
-const SearchBar = () => {
+const SearchField = ({ onChange, onClearSearch }) => {
   const inputRef = useRef(null);
 
   const handleIconClick = () => {
     inputRef.current.focus();
+  };
+
+  const clearInput = () => {
+    inputRef.current.value = "";
+    onClearSearch();
   };
 
   return (
@@ -19,15 +24,18 @@ const SearchBar = () => {
         placeholder="Busca..."
         className="p-2  focus:outline-none"
         ref={inputRef}
+        onChange={(e) => onChange(e)}
       />
       <div
         className="absolute right-3 p-1 cursor-pointer"
         onClick={handleIconClick}
       >
-        <Icon name="search" />
+        <button onClick={clearInput}>
+          <Icon name="search" />
+        </button>
       </div>
     </div>
   );
 };
 
-export default SearchBar;
+export default SearchField;

@@ -7,7 +7,7 @@ import {
   uploadFileByUserService,
 } from "../services/fileService.js";
 import Filterbar from "../components/Filterbar.jsx";
-import SearchBar from "../components/SearchBar.jsx";
+import SearchField from "../components/SearchField.jsx";
 import FileList from "../components/FileList.jsx";
 import FileUploader from "../components/FileUploader.jsx";
 import { ToastContainer, toast } from "react-toastify";
@@ -19,12 +19,12 @@ import Profile from "../components/Profile.jsx";
 function HomePage() {
   const [user, setUser] = useState(null);
   const [files, setFiles] = useState([]);
+  const [filteredFiles, setFilteredFiles] = useState(files);
   const [filter, setFilter] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
   const [isFetchingFiles, setIsFetchingFiles] = useState(true);
   const navigate = useNavigate();
-
   useEffect(() => {
     const fetchStoredUser = async () => {
       try {
@@ -44,6 +44,20 @@ function HomePage() {
     handleFetchFiles();
   }, [user]);
 
+  useEffect(() => {
+    setFilteredFiles(files);
+  }, [files]);
+
+  const handleFilterFiles = (e) => {
+    const filtered = files.filter((f) => f.name.includes(e.target.value));
+    setFilteredFiles(filtered);
+  };
+
+  const handleClearSearch = () => {
+    setFilteredFiles(files);
+  };
+
+  console.log(filteredFiles);
   const handleFetchFiles = async () => {
     if (!user) return;
     setIsFetchingFiles(true);
@@ -107,7 +121,10 @@ function HomePage() {
       <header className="flex justify-between items-center px-4 h-20">
         <Logo />
         <div className="hidden flex-grow md:block md:m-2">
-          <SearchBar setFilter={setFilter} />
+          <SearchField
+            onChange={handleFilterFiles}
+            onClearSearch={handleClearSearch}
+          />
         </div>
         {user && (
           <Profile
@@ -120,7 +137,11 @@ function HomePage() {
       <div className="flex-grow m-8">
         <Filterbar filter={filter} setFilter={setFilter} />
         <div className="flex-grow mx-1 sm:mx-32">
-          <FileList items={files} filter={filter} onDelete={handleDeleteFile} />
+          <FileList
+            items={filteredFiles}
+            filter={filter}
+            onDelete={handleDeleteFile}
+          />
         </div>
       </div>
       <footer className="fixed bottom-0 px-4 py-4 w-full bg-white border-t border-gray-200 sm:px-16">

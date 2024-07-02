@@ -29,12 +29,9 @@ const FileList = ({ items = [], filter, onDelete }) => {
   const actionLinkStyles = "flex items-center text-sm";
   const actionButtonStyles = "flex items-center text-sm";
 
-  const filteredItems =
-    items && items.filter((file) => filter === "" || file.type === filter);
-
   return (
     <div>
-      {filteredItems.length === 0 ? (
+      {items.length === 0 ? (
         <p className="mt-4 text-center text-gray-500">
           Não há arquivos para exibir.
         </p>
@@ -47,7 +44,7 @@ const FileList = ({ items = [], filter, onDelete }) => {
             <p className="w-1/6 text-sm font-bold">Tamanho</p>
             <p className="w-1/6 text-sm font-bold">Ações</p>
           </li>
-          {filteredItems.map((item, index) => (
+          {items.map((item, index) => (
             <li key={index} className={listItemStyles}>
               <div className="flex items-center mb-2 w-full sm:w-1/3 sm:mb-0">
                 {types[item.extension]}
